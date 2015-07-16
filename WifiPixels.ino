@@ -10,7 +10,7 @@
 int LEDSettings[cycles][pixelCount][3] = {0};
 
 // Wifi Settings
-const char* ssid = "AndroidAP1";
+const char* ssid = "WifiPixels";
 const char* password = "12345678";
 const int led = 0;
 
@@ -24,9 +24,9 @@ int blue=0;
 int red=0;
 int green=0;
 
-void handleRoot() {
-  digitalWrite(led, 1);
-  server.send(200, "text/plain", "hello from esp8266!");
+void handleRoot(){
+  digitalWrite(led, 0);
+
   if(server.args() > 0){
     String temp = "";
 
@@ -49,7 +49,16 @@ void handleRoot() {
     }
     
   }
-  digitalWrite(led, 0);
+  
+  String body = "<!DOCTYPE html><html><body><form action=""index.html"">Red:<br><input type=""text"" name=""red"" value=""";
+  body += String(red);
+  body += """><br>Green:<br><input type=""text"" name=""green"" value=""";
+  body += String(green);
+  body += """><br>Blue:<br><input type=""text"" name=""blue"" value=""";
+  body += String(blue);
+  body += """><br><input type=""submit"" value=""Set""></form> </body></html>";
+  server.send(200, "text/html", body);
+  digitalWrite(led, 1);
 }
 
 void handleNotFound(){
@@ -77,38 +86,28 @@ void setup()
   SetAll(RgbColor(0,0, 0));
   strip.Show();
 
-  // Wifi
-  pinMode(led, OUTPUT);
-  digitalWrite(led, 0);
+  // Serial
   Serial.begin(115200);
-  WiFi.begin(ssid, password);
   Serial.println("");
 
-  // Wait for connection
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.print("Connected to ");
-  Serial.println(ssid);
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  // Wifi
+
   
-  if (mdns.begin("esp8266", WiFi.localIP())) {
-    Serial.println("MDNS responder started");
-  }
-  
+  //WiFi.softAP(ssid,password);
+  WiFi.softAP(ssid);  // Open connection
+
+  // Wifi LED
+  pinMode(led, OUTPUT);
+  digitalWrite(led, 1);
+
+  // Routing Table
+  server.on("/index.html", handleRoot);
   server.on("/", handleRoot);
   
   server.onNotFound(handleNotFound);
-  
   server.begin();
   Serial.println("HTTP server started");
-
-
 }
-
 
 void loop()
 {
@@ -130,5 +129,3 @@ void SetAll(RgbColor colour){
     strip.SetPixelColor(K, colour);
   }
 }
-
-
