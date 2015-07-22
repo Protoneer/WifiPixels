@@ -109,13 +109,21 @@ void setup()
   Serial.println("HTTP server started");
 }
 
+int index = 0;
+int indexMax = pixelCount-1;
+
 void loop()
 {
-  CyclePixels();
+  index++;
+  if(index > indexMax){
+    index = 0;
+  }
+
+  CyclePixels(index);
   server.handleClient();
 }
 
-void CyclePixels(){
+void CyclePixels(int K){
   for(int K=0;K<pixelCount;K++){
     SetAll(RgbColor(0,0, 0));
     strip.SetPixelColor(K, RgbColor(red,green, blue));
