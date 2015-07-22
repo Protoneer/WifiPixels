@@ -3,6 +3,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <NeoPixelBus.h>
+#include <EEPROM.h>
 
 // LED Settings
 #define pixelCount 16
@@ -34,24 +35,29 @@ void handleRoot(){
   if(server.args() > 0){
     String temp = "";
 
-    // blue
-    temp = server.arg("blue");
-    if(temp.length() > 0){
-      blue = temp.toInt();
-    }
-
     // red
     temp = server.arg("red");
     if(temp.length() > 0){
       red = temp.toInt();
+      EEPROM.write(0,red);
+      EEPROM.commit();
     }
 
     // green
     temp = server.arg("green");
     if(temp.length() > 0){
       green = temp.toInt();
+      EEPROM.write(1,green);
+      EEPROM.commit();
     }
     
+    // blue
+    temp = server.arg("blue");
+    if(temp.length() > 0){
+      blue = temp.toInt();
+      EEPROM.write(2,blue);
+      EEPROM.commit();
+    }
   }
 
   String body = 
@@ -95,6 +101,11 @@ void handleNotFound(){
 
 void setup()
 {
+  EEPROM.begin(512);
+  red = EEPROM.read(0);
+  green = EEPROM.read(1);
+  blue = EEPROM.read(2);
+  
   // this resets all the neopixels to an off state
   strip.Begin();
   SetAll(RgbColor(0,0, 0));
