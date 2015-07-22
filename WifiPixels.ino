@@ -9,9 +9,13 @@
 #define cycles 20
 int LEDSettings[cycles][pixelCount][3] = {0};
 
+int ledIndex;
+int ledIndexMax;
+
+
 // Wifi Settings
 const char* ssid = "WifiPixels";
-const char* password = "12345678";
+const char* password = "";
 const int led = 0;
 
 
@@ -50,15 +54,6 @@ void handleRoot(){
     
   }
 
-/*  
-  String body = "<!DOCTYPE html><html><body><form action=""index.html"">Red:<br><input type=""text"" name=""red"" value=""";
-  body += String(red);
-  body += """><br>Green:<br><input type=""text"" name=""green"" value=""";
-  body += String(green);
-  body += """><br>Blue:<br><input type=""text"" name=""blue"" value=""";
-  body += String(blue);
-  body += """><br><input type=""submit"" value=""Set""></form> </body></html>";
-*/
   String body = 
   "<!DOCTYPE html>"
   "<html>"
@@ -105,6 +100,11 @@ void setup()
   SetAll(RgbColor(0,0, 0));
   strip.Show();
 
+  ledIndex = 0;
+  ledIndexMax = pixelCount-1;
+
+
+
   // Serial
   Serial.begin(115200);
   Serial.println("");
@@ -113,7 +113,7 @@ void setup()
 
   
   //WiFi.softAP(ssid,password);
-  WiFi.softAP(ssid);  // Open connection
+  WiFi.softAP(ssid,password,7);  // Open connection
 
   // Wifi LED
   pinMode(led, OUTPUT);
@@ -128,27 +128,22 @@ void setup()
   Serial.println("HTTP server started");
 }
 
-int index = 0;
-int indexMax = pixelCount-1;
-
 void loop()
 {
-  index++;
-  if(index > indexMax){
-    index = 0;
+  ledIndex++;
+  if(ledIndex > ledIndexMax){
+    ledIndex = 0;
   }
 
-  CyclePixels(index);
+  CyclePixels(ledIndex);
   server.handleClient();
 }
 
 void CyclePixels(int K){
-  for(int K=0;K<pixelCount;K++){
     SetAll(RgbColor(0,0, 0));
     strip.SetPixelColor(K, RgbColor(red,green, blue));
     strip.Show();
     delay(20);
-  }
 }
 
 void SetAll(RgbColor colour){
