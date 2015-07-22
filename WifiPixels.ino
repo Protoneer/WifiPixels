@@ -49,7 +49,8 @@ void handleRoot(){
     }
     
   }
-  
+
+/*  
   String body = "<!DOCTYPE html><html><body><form action=""index.html"">Red:<br><input type=""text"" name=""red"" value=""";
   body += String(red);
   body += """><br>Green:<br><input type=""text"" name=""green"" value=""";
@@ -57,6 +58,24 @@ void handleRoot(){
   body += """><br>Blue:<br><input type=""text"" name=""blue"" value=""";
   body += String(blue);
   body += """><br><input type=""submit"" value=""Set""></form> </body></html>";
+*/
+  String body = 
+  "<!DOCTYPE html>"
+  "<html>"
+  "<body>"
+  "<form action=""index.html"">"
+  "Red:<br><input type=""text"" name=""red"" value=""$R$""><br>"
+  "Green:<br><input type=""text"" name=""green"" value=""$G$""><br>"
+  "Blue:<br><input type=""text"" name=""blue"" value=""$B$""><br>"
+  "<input type=""submit"" value=""Set"">"
+  "</form>"
+  "</body>"
+  "</html>";
+
+  body.replace("$R$",String(red));
+  body.replace("$G$",String(green));
+  body.replace("$B$",String(blue));  
+
   server.send(200, "text/html", body);
   digitalWrite(led, 1);
 }
