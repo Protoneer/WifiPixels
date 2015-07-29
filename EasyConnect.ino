@@ -4,16 +4,22 @@
 #include <ESP8266mDNS.h>
 #include <EEPROM.h>
 
-// Wifi Settings
-const char* ssid = "xxxx";
-const char* password = "xxxx";
-
 MDNSResponder mdns;
 ESP8266WebServer server(80);
 
+// Wifi Settings
+//const char* ssid = "xxxx";
+//const char* password = "xxxx";
+
+String ssid ="";
+String password="";
+
+String APSSID = "WifiPixels";
+String APPassword = "";
 String Mode = "";
 String Status = "";
 String Network ="";
+String IP ="";
 
 
 void handleRoot() {
@@ -40,12 +46,33 @@ void handleRoot() {
 }
 
 void handleWifi() {
+  // Check for args with connection settings
+  if(server.args() > 0){
+    String temp = "";
+    
+    temp = server.arg("ap");
+    if(temp.length() > 0){
+      ssid = temp;
+    }else{
+      ssid="";
+    }
+
+    temp = server.arg("pw");
+    if(temp.length() > 0){
+      password = temp;
+    }else{
+      password="";
+    }
+
+    wifiSetup();
+  }  
+  
   String body =
     "<!DOCTYPE html>"
     "<html>"
     "<head>"
     "  <meta charset=""UTF-8"">"
-    " <meta name=""viewport"" content=""width=device-width"">"
+    " <meta name=""viewport"" content=""width=310px"">"
     " <title>Wifi Setup</title>"
     "<style>"
     "table, th, td {"
@@ -60,7 +87,7 @@ void handleWifi() {
     "</script>"
     "</head>"
     "<body>"
-    " <table border=""1"" style=""width:200px"">"
+    " <table border=""1"" style=""width:300px"">"
     "   <tr>"
     "   <th colspan=""2"" bgcolor=""black""><font color=""white"">WIFI Settings</font></td>"
     "   </tr>"
@@ -71,22 +98,24 @@ void handleWifi() {
     "   <tr><td colspan=""2""><input type=""Button"" value=""Turn Hotspot ON"" /></td><tr>"
     " </table>"
     " <br>"
-    " <table border=""1"" style=""width:200px"">"
+    " <form  action=""wifi.html"">"
+    " <table border=""1"" style=""width:300px"">"
     "   <tr>"
     "   <th colspan=""2"" bgcolor=""black""><font color=""white"">WIFI Connections</font></td>"
     "   </tr>"
-    "   <tr><td>$APs$"
+    "   <tr><td>$APs$</td>"
     "   <tr>"
-    "   <tr><td colspan=""2"">Password: <input type=""password"" value="""" style=""width: 100px;"" /></td><tr>"
-    "   <tr><td colspan=""2""><button onclick=""location.href='wifi.html';"">Refresh</button> <input type=""Button"" value=""Connect"" /></td><tr>"
+    "   <tr><td colspan=""2"">Password: <input name=""pw"" type=""password"" value="""" style=""width: 100px;"" /></td><tr>"
+    "   <tr><td colspan=""2""><button onclick=""location.href='wifi.html';"">Refresh</button> <input type=""submit"" value=""Connect"" /></td><tr>"
     " </table>"
+    " </form>"
     "</body>"
     "</html>";
     
   body.replace("$Network$",Network);
   body.replace("$Status$", Status);
 
-  body.replace("$IP$",    LocalIP());
+  body.replace("$IP$",    IP);
   body.replace("$Mode$",  Mode);
 
   body.replace("$APs$",    GetAPList());
@@ -96,9 +125,11 @@ void handleWifi() {
   server.send(200, "text/html", body);
 }
 
-String LocalIP(){
-  return String(WiFi.localIP()[0]) + '.' + String(WiFi.localIP()[1])  + '.' + String(WiFi.localIP()[2])  + '.' + String(WiFi.localIP()[3]);
+String IPtoString(IPAddress IPaddr){
+  return String(IPaddr[0]) + '.' + String(IPaddr[1])  + '.' + String(IPaddr[2])  + '.' + String(IPaddr[3]);
 }
+
+
 
 String GetAPList(){
   int n = WiFi.scanNetworks();
@@ -131,25 +162,66 @@ void handleNotFound() {
   server.send(404, "text/plain", message);
 }
 
-void WifiClient(){
-  WiFi.begin(ssid, password);  
-  while (WiFi.status() != WL_CONNECTED) {
+bool WifiClient(){
+  char ssid_buff[ssid.length()+1];
+  char password_buff[password.length()+1];
+  ssid.toCharArray(ssid_buff,ssid.length()+1);
+  password.toCharArray(password_buff,password.length()+1);
+  
+  WiFi.begin((const char*)ssid_buff, (const char*)password_buff);
+  int retries = 5;  
+  while (WiFi.status() != WL_CONNECTED && retries >= 0) {
     delay(500);
     Serial.print(".");
+    retries--;
   }
 
-  Status = "Connected";
-  Mode = "WifiClient";
-  Network = ssid;
+  if(WiFi.status() == WL_CONNECTED){
+    // Stop AP
+    WiFi.softAPdisconnect(true);
 
-  Serial.println("");
-  Serial.println("WiFi Client connected");  
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
+    
+    Mode = "WifiClient";
+    Status = "Connected";
+    Mode = "WifiClient";
+    Network = ssid;
+    IP = IPtoString(WiFi.localIP());
+  
+    Serial.println("");
+    Serial.println("WiFi Client connected");  
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());    
+    return true;
+  } else{
+    Mode = "n/a";
+    Status = "n/a";
+    Network = "n/a";
+
+    Serial.println("WiFi Client not connected!!!");  
+    return false;
+  }
+
 }
 
 void WifiAP(){
-  WiFi.softAP(ssid, password, 7); // Open connection  
+  char apssid_buff[APSSID.length()+1];
+  char appassword_buff[APPassword.length()+1];
+  APSSID.toCharArray(apssid_buff,APSSID.length()+1);
+  APPassword.toCharArray(appassword_buff,APPassword.length()+1);
+  
+  WiFi.softAP((const char*)apssid_buff, (const char*)appassword_buff, 7); // Open connection  
+
+  //Stop Client
+  WiFi.disconnect(true);
+
+  Serial.println("WiFi AP Started");  
+  
+  Mode = "Access Point";
+  Status = "Running";
+  Network = APSSID;
+  IP = IPtoString(WiFi.softAPIP());
+
+  
 }
 
 void WebServer(){
@@ -162,6 +234,12 @@ void WebServer(){
   Serial.println("HTTP server started");
 }
 
+void wifiSetup(){
+  if(!WifiClient()){
+    WifiAP();  
+  }    
+}
+
 void setup()
 {
   EEPROM.begin(512);
@@ -171,8 +249,7 @@ void setup()
   Serial.println("");
 
   // Wifi
-  WifiClient();
-  //WifiAP();
+  wifiSetup();
 
   WebServer();
 }
@@ -181,4 +258,3 @@ void loop()
 {
   server.handleClient();
 }
-
