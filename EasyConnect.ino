@@ -63,6 +63,7 @@ void handleWifi() {
     }else{
       password="";
     }
+    writeEEPROMSettings();
 
     wifiSetup();
   }  
@@ -163,11 +164,20 @@ void handleNotFound() {
 }
 
 bool WifiClient(){
+  
   char ssid_buff[ssid.length()+1];
   char password_buff[password.length()+1];
   ssid.toCharArray(ssid_buff,ssid.length()+1);
   password.toCharArray(password_buff,password.length()+1);
-  
+
+  Serial.println("Connecting with...");
+  Serial.print('[');
+  Serial.print(ssid_buff);
+  Serial.println(']');
+  Serial.print('[');
+  Serial.print(password_buff);
+  Serial.println(']');
+
   WiFi.begin((const char*)ssid_buff, (const char*)password_buff);
   int retries = 5;  
   while (WiFi.status() != WL_CONNECTED && retries >= 0) {
@@ -177,10 +187,6 @@ bool WifiClient(){
   }
 
   if(WiFi.status() == WL_CONNECTED){
-    // Stop AP
-    WiFi.softAPdisconnect(true);
-
-    
     Mode = "WifiClient";
     Status = "Connected";
     Mode = "WifiClient";
@@ -235,15 +241,73 @@ void WebServer(){
 }
 
 void wifiSetup(){
+  // Stop AP
+  //WiFi.softAPdisconnect(true);
+  //WiFi.disconnect(true);
+
   if(!WifiClient()){
     WifiAP();  
   }    
 }
 
+void readEEPROMSettings(){
+  Serial.println("Reading EEPROM");
+  ssid = "";
+  for(int K=0;K<32;K++){
+    char temp = EEPROM.read(K);
+    Serial.print(temp);
+    if(temp != 0){
+      ssid += EEPROM.read(K);      
+    } else{
+      break;
+    }      
+  }
+
+  password = "";
+  for(int K=32;K<96;K++){
+    char temp = EEPROM.read(K);
+    if(temp != 0){
+      Serial.print(temp);
+      password += EEPROM.read(K);      
+    } else{
+      break;
+    }      
+  }
+  Serial.print('[');
+  Serial.print(ssid);
+  Serial.println(']');
+  Serial.print('[');
+  Serial.print(password);
+  Serial.println(']');
+  
+}
+void writeEEPROMSettings(){
+  Serial.println("Writing EEPROM");
+  Serial.print('[');
+  Serial.print(ssid);
+  Serial.println(']');
+  Serial.print('[');
+  Serial.print(password);
+  Serial.println(']');
+
+
+  
+  for(int K=0;K<ssid.length();K++)  {
+    EEPROM.write(K,ssid[K]);
+  }
+  EEPROM.write(ssid.length(),0);
+  
+  for(int K=0;K<+ssid.length();K++)  {
+    EEPROM.write(32+K,ssid[K]);
+  }
+  EEPROM.write(32+ssid.length(),0);
+}
+
 void setup()
 {
   EEPROM.begin(512);
-
+  readEEPROMSettings();
+  
   // Serial
   Serial.begin(115200);
   Serial.println("");
