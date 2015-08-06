@@ -252,12 +252,14 @@ void wifiSetup(){
 
 void readEEPROMSettings(){
   Serial.println("Reading EEPROM");
+  Serial.println(EEPROM.read(0));
+  
   ssid = "";
   for(int K=0;K<32;K++){
     char temp = EEPROM.read(K);
-    Serial.print(temp);
     if(temp != 0){
-      ssid += EEPROM.read(K);      
+      Serial.print(temp);
+      ssid += char(EEPROM.read(K));      
     } else{
       break;
     }      
@@ -268,7 +270,7 @@ void readEEPROMSettings(){
     char temp = EEPROM.read(K);
     if(temp != 0){
       Serial.print(temp);
-      password += EEPROM.read(K);      
+      password += char(EEPROM.read(K));      
     } else{
       break;
     }      
@@ -297,10 +299,10 @@ void writeEEPROMSettings(){
   }
   EEPROM.write(ssid.length(),0);
   
-  for(int K=0;K<+ssid.length();K++)  {
-    EEPROM.write(32+K,ssid[K]);
+  for(int K=0;K<+password.length();K++)  {
+    EEPROM.write(32+K,password[K]);
   }
-  EEPROM.write(32+ssid.length(),0);
+  EEPROM.write(32+password.length(),0);
 }
 
 void setup()
