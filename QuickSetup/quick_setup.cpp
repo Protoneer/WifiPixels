@@ -1,7 +1,23 @@
+#include "quick_setup.h"
 #include <EEPROM.h>
+#include "webinterface.h"
+#include "wifi_helper.h"
 
 
+void QUICK_SETUP_CLASS::Start(){
+  wifi_helper = new WIFI_HELPER_CLASS();
+  wifi_helper->wifiSetup();
 
+  
+  web_interface = new WEBINTERFACE_CLASS(); 
+  web_interface->WebServer();
+}
+
+void QUICK_SETUP_CLASS::Handle_Requests(){
+  web_interface->handleClient();
+}
+
+/*
 // Wifi Settings
 //const char* ssid = "xxxx";
 //const char* password = "xxxx";
@@ -9,8 +25,7 @@
 String ssid ="";
 String password="";
 
-String APSSID = "WifiPixels";
-String APPassword = "";
+
 String Mode = "";
 String Status = "";
 String Network ="";
@@ -81,4 +96,5 @@ void writeEEPROMSettings(){
   }
   EEPROM.write(32+password.length(),0);
 }
+*/
 

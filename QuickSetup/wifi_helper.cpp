@@ -1,3 +1,5 @@
+#include <ESP8266WiFi.h>
+
 String GetAPList(){
   int n = WiFi.scanNetworks();
   String result = "";
@@ -86,10 +88,6 @@ void WifiAP(){
 }
 
 void wifiSetup(){
-  // Stop AP
-  //WiFi.softAPdisconnect(true);
-  //WiFi.disconnect(true);
-
   if(!WifiClient()){
     WifiAP();  
   }    
