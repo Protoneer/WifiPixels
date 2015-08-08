@@ -2,6 +2,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 
+WEBINTERFACE_CLASS * web_interface;
+
 ESP8266WebServer server(80);
 
 
@@ -45,6 +47,7 @@ void handleRoot() {
 }
 
 void handleWifi() {
+  /*
   // Check for args with connection settings
   if(server.args() > 0){
     String temp = "";
@@ -66,6 +69,7 @@ void handleWifi() {
 
     wifiSetup();
   }  
+  */
   
   String body =
     "<!DOCTYPE html>"
@@ -111,7 +115,7 @@ void handleWifi() {
     " </form>"
     "</body>"
     "</html>";
-    
+  /*  
   body.replace("$Network$",Network);
   body.replace("$Status$", Status);
 
@@ -119,14 +123,14 @@ void handleWifi() {
   body.replace("$Mode$",  Mode);
 
   body.replace("$APs$",    GetAPList());
-
+  */
   
     
   server.send(200, "text/html", body);
 }
 
 
-bool WEBINTERFACE_CLASS::WebServer()
+void WEBINTERFACE_CLASS::WebServer()
 {
   // Routing Table
   server.on("/wifi.html", handleWifi);

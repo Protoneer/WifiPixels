@@ -3,6 +3,7 @@
 #include "webinterface.h"
 #include "wifi_helper.h"
 
+QUICK_SETUP_CLASS * quick_setup;
 
 void QUICK_SETUP_CLASS::Start(){
   wifi_helper = new WIFI_HELPER_CLASS();

@@ -1,4 +1,8 @@
 #include <ESP8266WiFi.h>
+#include "quick_setup.h"
+#include "wifi_helper.h"
+
+WIFI_HELPER_CLASS * wifi_helper;
 
 String GetAPList(){
   int n = WiFi.scanNetworks();
@@ -20,12 +24,12 @@ String IPtoString(IPAddress IPaddr){
   return String(IPaddr[0]) + '.' + String(IPaddr[1])  + '.' + String(IPaddr[2])  + '.' + String(IPaddr[3]);
 }
 
-bool WifiClient(){
+void WifiClient(){
   
-  char ssid_buff[ssid.length()+1];
-  char password_buff[password.length()+1];
-  ssid.toCharArray(ssid_buff,ssid.length()+1);
-  password.toCharArray(password_buff,password.length()+1);
+  char ssid_buff[quick_setup->CLIENT_SSID.length()+1];
+  char password_buff[quick_setup->CLIENT_Password.length()+1];
+  quick_setup->CLIENT_SSID.toCharArray(ssid_buff,quick_setup->CLIENT_SSID.length()+1);
+  quick_setup->CLIENT_Password.toCharArray(password_buff,quick_setup->CLIENT_Password.length()+1);
 
   Serial.println("Connecting with...");
   Serial.print('[');
@@ -44,33 +48,27 @@ bool WifiClient(){
   }
 
   if(WiFi.status() == WL_CONNECTED){
-    Mode = "WifiClient";
-    Status = "Connected";
-    Mode = "WifiClient";
-    Network = ssid;
-    IP = IPtoString(WiFi.localIP());
-  
+    quick_setup->Mode = CLIENT_MODE;
+    quick_setup->CLIENT_State = CONNECTED;
+    quick_setup->CLIENT_IP = WiFi.localIP();
+
     Serial.println("");
     Serial.println("WiFi Client connected");  
     Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());    
-    return true;
+    Serial.println(quick_setup->CLIENT_IP);    
   } else{
-    Mode = "n/a";
-    Status = "n/a";
-    Network = "n/a";
+    quick_setup->Mode = AP_MODE;
+    quick_setup->CLIENT_State = DISCONNECTED;;
 
     Serial.println("WiFi Client not connected!!!");  
-    return false;
   }
-
 }
 
 void WifiAP(){
-  char apssid_buff[APSSID.length()+1];
-  char appassword_buff[APPassword.length()+1];
-  APSSID.toCharArray(apssid_buff,APSSID.length()+1);
-  APPassword.toCharArray(appassword_buff,APPassword.length()+1);
+  char apssid_buff[quick_setup->AP_SSID.length()+1];
+  char appassword_buff[quick_setup->AP_Password.length()+1];
+  quick_setup->AP_SSID.toCharArray(apssid_buff,quick_setup->AP_SSID.length()+1);
+  quick_setup->AP_Password.toCharArray(appassword_buff,quick_setup->AP_Password.length()+1);
   
   WiFi.softAP((const char*)apssid_buff, (const char*)appassword_buff, 7); // Open connection  
 
@@ -79,16 +77,17 @@ void WifiAP(){
 
   Serial.println("WiFi AP Started");  
   
-  Mode = "Access Point";
-  Status = "Running";
-  Network = APSSID;
-  IP = IPtoString(WiFi.softAPIP());
+  quick_setup->Mode = AP_MODE;
+  quick_setup->AP_State = CONNECTED;
+  quick_setup->AP_IP = WiFi.softAPIP();
 
   
 }
 
-void wifiSetup(){
-  if(!WifiClient()){
+void WIFI_HELPER_CLASS::wifiSetup(){
+  WifiClient();
+  
+  if(quick_setup->Mode == AP_MODE)
     WifiAP();  
-  }    
 }
+
