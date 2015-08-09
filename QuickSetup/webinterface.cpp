@@ -9,7 +9,6 @@ WEBINTERFACE_CLASS * web_interface;
 
 ESP8266WebServer server(80);
 
-
 void handleNotFound() {
   String message = "File Not Found\n\n";
   message += "URI: ";
@@ -23,30 +22,6 @@ void handleNotFound() {
     message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
   }
   server.send(404, "text/plain", message);
-}
-
-
-void handleRoot() {
-
-  String body =
-    "<!DOCTYPE html>"
-    "<html>"
-    "<body>"
-    "<form action=""index.html"">"
-    "Red:<br><input type=""text"" name=""red"" value=""$R$""><br>"
-    "Green:<br><input type=""text"" name=""green"" value=""$G$""><br>"
-    "Blue:<br><input type=""text"" name=""blue"" value=""$B$""><br>"
-    "<input type=""submit"" value=""Set"">"
-    "</form>"
-    "</body>"
-    "</html>";
-  /*
-    body.replace("$R$",String(red));
-    body.replace("$G$",String(green));
-    body.replace("$B$",String(blue));
-  */
-
-  server.send(200, "text/html", body);
 }
 
 void handleWifi() {
@@ -76,7 +51,6 @@ void handleWifi() {
   }  
   
   String body = wifi_html;
-
     
   body.replace("$Network$",String(quick_setup->Mode == CLIENT_MODE ? quick_setup->CLIENT_SSID : quick_setup->AP_SSID));
   body.replace("$Status$",String(quick_setup->Mode == CLIENT_MODE ? quick_setup->CLIENT_State : quick_setup->AP_State));
@@ -94,8 +68,8 @@ void handleWifi() {
 void WEBINTERFACE_CLASS::WebServer()
 {
   // Routing Table
-  server.on("/wifi.html", handleWifi);
-  server.on("/", handleRoot);
+  server.on("/wifisetup.html", handleWifi);
+  server.on("/", handleWifi);
 
   server.onNotFound(handleNotFound);
   server.begin();

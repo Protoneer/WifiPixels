@@ -30,7 +30,7 @@ const String wifi_html  =
 "   <tr><td colspan=""2""><input type=""Button"" value=""Turn Hotspot ON"" /></td><tr>"
 " </table>"
 " <br>"
-" <form  action=""wifi.html"">"
+" <form  action=""wifisetup.html"" method=""post"">"
 " <table border=""1"" style=""width:300px"">"
 "   <tr>"
 "   <th colspan=""2"" bgcolor=""black""><font color=""white"">WIFI Connections</font></td>"

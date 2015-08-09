@@ -38,7 +38,8 @@ void WifiClient(){
   Serial.print('[');
   Serial.print(password_buff);
   Serial.println(']');
-    
+
+  WiFi.mode(WIFI_STA);
   WiFi.begin((const char*)ssid_buff, (const char*)password_buff);
 
   if (WiFi.waitForConnectResult() == WL_CONNECTED){
@@ -52,7 +53,7 @@ void WifiClient(){
     Serial.println(quick_setup->CLIENT_IP);    
   } else{
     quick_setup->Mode = AP_MODE;
-    quick_setup->CLIENT_State = DISCONNECTED;;
+    quick_setup->CLIENT_State = DISCONNECTED;
 
     Serial.println("WiFi Client not connected!!!");  
     wifi_helper->wifiSetup();
@@ -66,7 +67,7 @@ void WifiAP(){
   quick_setup->AP_SSID.toCharArray(apssid_buff,quick_setup->AP_SSID.length()+1);
   quick_setup->AP_Password.toCharArray(appassword_buff,quick_setup->AP_Password.length()+1);
 
-  //WiFi.mode(WIFI_AP_STA);
+  WiFi.mode(WIFI_AP);
   
   WiFi.softAP((const char*)apssid_buff, (const char*)appassword_buff, 7); // Open connection  
 
@@ -78,6 +79,8 @@ void WifiAP(){
   quick_setup->Mode = AP_MODE;
   quick_setup->AP_State = CONNECTED;
   quick_setup->AP_IP = WiFi.softAPIP();
+  quick_setup->CLIENT_State = DISCONNECTED;
+
   
   Serial.println("IP address: ");
   Serial.println(quick_setup->AP_IP); 
