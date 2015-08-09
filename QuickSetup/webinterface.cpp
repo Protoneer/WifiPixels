@@ -1,4 +1,7 @@
 #include "webinterface.h"
+#include "html_static_resources.h"
+#include "quick_setup.h"
+#include "wifi_helper.h"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 
@@ -47,83 +50,41 @@ void handleRoot() {
 }
 
 void handleWifi() {
-  /*
   // Check for args with connection settings
   if(server.args() > 0){
     String temp = "";
     
     temp = server.arg("ap");
     if(temp.length() > 0){
-      ssid = temp;
+      quick_setup->CLIENT_SSID = temp;
     }else{
-      ssid="";
+      quick_setup->CLIENT_SSID = "";
     }
 
     temp = server.arg("pw");
     if(temp.length() > 0){
-      password = temp;
+      quick_setup->CLIENT_Password = temp;
     }else{
-      password="";
+      quick_setup->CLIENT_Password = "";
     }
-    writeEEPROMSettings();
 
-    wifiSetup();
+    // Save Settings
+    //writeEEPROMSettings();
+
+    //quick_setup->Mode = CLIENT_MODE;
+    //wifi_helper->wifiSetup();
   }  
-  */
   
-  String body =
-    "<!DOCTYPE html>"
-    "<html>"
-    "<head>"
-    "  <meta charset=""UTF-8"">"
-    " <meta name=""viewport"" content=""width=310px"">"
-    " <title>Wifi Setup</title>"
-    "<style>"
-    "table, th, td {"
-    "    border: 1px solid black;"
-    "    border-collapse: collapse;"
-    "}"
-    "th, td {"
-    "    padding: 5px;"
-    "}"
-    "</style>"
-    "<script type=""text/javascript"">"
-    "</script>"
-    "</head>"
-    "<body>"
-    " <table border=""1"" style=""width:300px"">"
-    "   <tr>"
-    "   <th colspan=""2"" bgcolor=""black""><font color=""white"">WIFI Settings</font></td>"
-    "   </tr>"
-    "   <tr><td>Network:</td><td>$Network$</td><tr>"
-    "   <tr><td>Status:</td><td>$Status$</td><tr>"
-    "   <tr><td>IP:</td><td>$IP$</td><tr>"
-    "   <tr><td>Mode:</td><td>$Mode$</td><tr>"
-    "   <tr><td colspan=""2""><input type=""Button"" value=""Turn Hotspot ON"" /></td><tr>"
-    " </table>"
-    " <br>"
-    " <form  action=""wifi.html"">"
-    " <table border=""1"" style=""width:300px"">"
-    "   <tr>"
-    "   <th colspan=""2"" bgcolor=""black""><font color=""white"">WIFI Connections</font></td>"
-    "   </tr>"
-    "   <tr><td>$APs$</td>"
-    "   <tr>"
-    "   <tr><td colspan=""2"">Password: <input name=""pw"" type=""password"" value="""" style=""width: 100px;"" /></td><tr>"
-    "   <tr><td colspan=""2""><button onclick=""location.href='wifi.html';"">Refresh</button> <input type=""submit"" value=""Connect"" /></td><tr>"
-    " </table>"
-    " </form>"
-    "</body>"
-    "</html>";
-  /*  
-  body.replace("$Network$",Network);
-  body.replace("$Status$", Status);
+  String body = wifi_html;
 
-  body.replace("$IP$",    IP);
-  body.replace("$Mode$",  Mode);
+    
+  body.replace("$Network$",String(quick_setup->Mode == CLIENT_MODE ? quick_setup->CLIENT_SSID : quick_setup->AP_SSID));
+  body.replace("$Status$",String(quick_setup->Mode == CLIENT_MODE ? quick_setup->CLIENT_State : quick_setup->AP_State));
+  body.replace("$IP$",String(wifi_helper->IPtoString(quick_setup->Mode == CLIENT_MODE ? quick_setup->CLIENT_IP : quick_setup->AP_IP)));
+  body.replace("$Mode$",String(quick_setup->Mode == CLIENT_MODE ? "Wifi Client" : "Access Point"));
 
-  body.replace("$APs$",    GetAPList());
-  */
+  body.replace("$APs$", wifi_helper->GetAPList());
+  
   
     
   server.send(200, "text/html", body);

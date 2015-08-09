@@ -4,7 +4,7 @@
 
 WIFI_HELPER_CLASS * wifi_helper;
 
-String GetAPList(){
+String WIFI_HELPER_CLASS::GetAPList(){
   int n = WiFi.scanNetworks();
   String result = "";
   if(n==0){
@@ -20,7 +20,7 @@ String GetAPList(){
   return result;
 }
 
-String IPtoString(IPAddress IPaddr){
+String WIFI_HELPER_CLASS::IPtoString(IPAddress IPaddr){
   return String(IPaddr[0]) + '.' + String(IPaddr[1])  + '.' + String(IPaddr[2])  + '.' + String(IPaddr[3]);
 }
 
@@ -38,16 +38,10 @@ void WifiClient(){
   Serial.print('[');
   Serial.print(password_buff);
   Serial.println(']');
-
+    
   WiFi.begin((const char*)ssid_buff, (const char*)password_buff);
-  int retries = 5;  
-  while (WiFi.status() != WL_CONNECTED && retries >= 0) {
-    delay(500);
-    Serial.print(".");
-    retries--;
-  }
 
-  if(WiFi.status() == WL_CONNECTED){
+  if (WiFi.waitForConnectResult() == WL_CONNECTED){
     quick_setup->Mode = CLIENT_MODE;
     quick_setup->CLIENT_State = CONNECTED;
     quick_setup->CLIENT_IP = WiFi.localIP();
@@ -61,33 +55,41 @@ void WifiClient(){
     quick_setup->CLIENT_State = DISCONNECTED;;
 
     Serial.println("WiFi Client not connected!!!");  
+    wifi_helper->wifiSetup();
   }
 }
+
 
 void WifiAP(){
   char apssid_buff[quick_setup->AP_SSID.length()+1];
   char appassword_buff[quick_setup->AP_Password.length()+1];
   quick_setup->AP_SSID.toCharArray(apssid_buff,quick_setup->AP_SSID.length()+1);
   quick_setup->AP_Password.toCharArray(appassword_buff,quick_setup->AP_Password.length()+1);
+
+  //WiFi.mode(WIFI_AP_STA);
   
   WiFi.softAP((const char*)apssid_buff, (const char*)appassword_buff, 7); // Open connection  
 
   //Stop Client
   WiFi.disconnect(true);
 
-  Serial.println("WiFi AP Started");  
-  
+  Serial.println("WiFi AP Started...");  
+
   quick_setup->Mode = AP_MODE;
   quick_setup->AP_State = CONNECTED;
   quick_setup->AP_IP = WiFi.softAPIP();
-
+  
+  Serial.println("IP address: ");
+  Serial.println(quick_setup->AP_IP); 
   
 }
 
+
 void WIFI_HELPER_CLASS::wifiSetup(){
-  WifiClient();
-  
-  if(quick_setup->Mode == AP_MODE)
-    WifiAP();  
+  if (quick_setup->Mode == CLIENT_MODE){
+    WifiClient();
+  } else {
+    WifiAP();
+  }  
 }
 
