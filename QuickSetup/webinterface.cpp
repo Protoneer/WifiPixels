@@ -71,8 +71,8 @@ void handleWifi() {
     // Save Settings
     //writeEEPROMSettings();
 
-    //quick_setup->Mode = CLIENT_MODE;
-    //wifi_helper->wifiSetup();
+    quick_setup->Mode = CLIENT_MODE;
+    wifi_helper->wifiSetup();
   }  
   
   String body = wifi_html;
