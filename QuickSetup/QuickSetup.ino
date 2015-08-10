@@ -16,16 +16,19 @@ void setup()
   Serial.println("");
   Serial.println("System Starting Up....");
 
+  // EEPROM
+  EEPROM.begin(EEPROM_SIZE);
 
   quick_setup = new QUICK_SETUP_CLASS();
 
   // Set basic settings
   quick_setup->AP_SSID = "WifiPixels";
   quick_setup->AP_Password = ""; // Open network
+  quick_setup->Mode = AP_MODE;
   //quick_setup->AP_IP = "192.168.1.1"; // To-Do  
   //quick_setup->AP_Channel = 7; // To-Do  
 
-
+  quick_setup->LoadClientSettings();
   
   quick_setup->Start();  
 }

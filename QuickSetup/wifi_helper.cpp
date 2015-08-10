@@ -31,6 +31,7 @@ void WifiClient(){
   quick_setup->CLIENT_SSID.toCharArray(ssid_buff,quick_setup->CLIENT_SSID.length()+1);
   quick_setup->CLIENT_Password.toCharArray(password_buff,quick_setup->CLIENT_Password.length()+1);
 
+  /*
   Serial.println("Connecting with...");
   Serial.print('[');
   Serial.print(ssid_buff);
@@ -38,7 +39,9 @@ void WifiClient(){
   Serial.print('[');
   Serial.print(password_buff);
   Serial.println(']');
+  */
 
+  
   WiFi.mode(WIFI_STA);
   WiFi.begin((const char*)ssid_buff, (const char*)password_buff);
 
@@ -67,12 +70,11 @@ void WifiAP(){
   quick_setup->AP_SSID.toCharArray(apssid_buff,quick_setup->AP_SSID.length()+1);
   quick_setup->AP_Password.toCharArray(appassword_buff,quick_setup->AP_Password.length()+1);
 
-  WiFi.mode(WIFI_AP);
-  
-  WiFi.softAP((const char*)apssid_buff, (const char*)appassword_buff, 7); // Open connection  
-
   //Stop Client
   WiFi.disconnect(true);
+
+  WiFi.mode(WIFI_AP);  
+  WiFi.softAP((const char*)apssid_buff, (const char*)appassword_buff, 7); // Open connection  
 
   Serial.println("WiFi AP Started...");  
 
@@ -89,6 +91,7 @@ void WifiAP(){
 
 
 void WIFI_HELPER_CLASS::wifiSetup(){
+
   if (quick_setup->Mode == CLIENT_MODE){
     WifiClient();
   } else {

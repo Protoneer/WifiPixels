@@ -5,6 +5,51 @@
 
 QUICK_SETUP_CLASS * quick_setup;
 
+//read a string 
+//a string is multibyte + \0, this is won't work if 1 char is multibyte like chinese char 
+bool read_string(word pos, char byte_buffer[], word size_max)
+{
+  //check if parameters are acceptable
+  if (size_max==0 ||  pos+size_max+1 > EEPROM_SIZE || byte_buffer== NULL)return false;
+  byte b=0;
+  word i=0;
+  //read first byte
+  b = EEPROM.read(pos + i);
+  byte_buffer[i]=b;
+  i++;
+  //read until max size is reached or \0 is found
+  while (i<size_max+1 && b!=0)
+  {
+    b = EEPROM.read(pos+i);
+    byte_buffer[i]=b; 
+    i++;
+  } 
+  //if it is a string be sure there is an 0 at the end
+  if (b!=0)byte_buffer[i-1]=0x00; 
+  return true;
+}
+
+//write a string (array of byte with a 0x00  at the end)
+bool write_string(word pos, String value, word size_buffer)
+{
+  char byte_buffer[sizeof(value)];
+  value.toCharArray(byte_buffer, sizeof(byte_buffer));
+  
+  //check if parameters are acceptable
+  if (size_buffer==0 ||  pos+size_buffer+1 > EEPROM_SIZE || byte_buffer== NULL)return false;
+  //copy the value(s)
+  for (word i = 0; i < size_buffer; i++) {
+    EEPROM.write(pos + i, byte_buffer[i]);
+  }
+  
+  //0 terminal
+  EEPROM.write(pos + size_buffer, 0x00);
+  EEPROM.commit();
+  return true;
+}
+
+
+
 void QUICK_SETUP_CLASS::Start(){
   wifi_helper = new WIFI_HELPER_CLASS();
   wifi_helper->wifiSetup();
@@ -18,84 +63,21 @@ void QUICK_SETUP_CLASS::Handle_Requests(){
   web_interface->handleClient();
 }
 
-/*
-// Wifi Settings
-//const char* ssid = "xxxx";
-//const char* password = "xxxx";
+void QUICK_SETUP_CLASS::LoadClientSettings(){
 
-String ssid ="";
-String password="";
-
-
-String Mode = "";
-String Status = "";
-String Network ="";
-String IP ="";
-
-
-
-void config(){
-    EEPROM.begin(512);
-  readEEPROMSettings();
-
-}
-
-
-
-
-void readEEPROMSettings(){
-  Serial.println("Reading EEPROM");
-  Serial.println(EEPROM.read(0));
   
-  ssid = "";
-  for(int K=0;K<32;K++){
-    char temp = EEPROM.read(K);
-    if(temp != 0){
-      Serial.print(temp);
-      ssid += char(EEPROM.read(K));      
-    } else{
-      break;
-    }      
-  }
-
-  password = "";
-  for(int K=32;K<96;K++){
-    char temp = EEPROM.read(K);
-    if(temp != 0){
-      Serial.print(temp);
-      password += char(EEPROM.read(K));      
-    } else{
-      break;
-    }      
-  }
-  Serial.print('[');
-  Serial.print(ssid);
-  Serial.println(']');
-  Serial.print('[');
-  Serial.print(password);
-  Serial.println(']');
+  char ssid[32];
+  char pw[32];
+  if(!read_string(0,ssid,32))Serial.println("SSID ReadFailed...");
+  if(!read_string(33,pw,32))Serial.println("PW ReadFailed...");
+  
+  quick_setup->CLIENT_SSID = ssid;
+  quick_setup->CLIENT_Password = pw;
+  quick_setup->Mode = CLIENT_MODE;
   
 }
-void writeEEPROMSettings(){
-  Serial.println("Writing EEPROM");
-  Serial.print('[');
-  Serial.print(ssid);
-  Serial.println(']');
-  Serial.print('[');
-  Serial.print(password);
-  Serial.println(']');
 
-
-  
-  for(int K=0;K<ssid.length();K++)  {
-    EEPROM.write(K,ssid[K]);
-  }
-  EEPROM.write(ssid.length(),0);
-  
-  for(int K=0;K<+password.length();K++)  {
-    EEPROM.write(32+K,password[K]);
-  }
-  EEPROM.write(32+password.length(),0);
+void QUICK_SETUP_CLASS::SaveClientSettings(){  
+  if(!write_string(0,quick_setup->CLIENT_SSID,8))Serial.println("SSID Not Saved");
+  if(!write_string(33,quick_setup->CLIENT_Password,8))Serial.println("PW Not Saved");
 }
-*/
-

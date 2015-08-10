@@ -44,7 +44,7 @@ void handleWifi() {
     }
 
     // Save Settings
-    //writeEEPROMSettings();
+    quick_setup->SaveClientSettings();
 
     quick_setup->Mode = CLIENT_MODE;
     wifi_helper->wifiSetup();
@@ -57,9 +57,7 @@ void handleWifi() {
   body.replace("$IP$",String(wifi_helper->IPtoString(quick_setup->Mode == CLIENT_MODE ? quick_setup->CLIENT_IP : quick_setup->AP_IP)));
   body.replace("$Mode$",String(quick_setup->Mode == CLIENT_MODE ? "Wifi Client" : "Access Point"));
 
-  body.replace("$APs$", wifi_helper->GetAPList());
-  
-  
+  body.replace("$APs$", wifi_helper->GetAPList());  
     
   server.send(200, "text/html", body);
 }
