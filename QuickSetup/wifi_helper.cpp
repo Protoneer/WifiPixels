@@ -8,14 +8,16 @@ String WIFI_HELPER_CLASS::GetAPList(){
   int n = WiFi.scanNetworks();
   String result = "";
   if(n==0){
-    result = "<a>No networks found</a>";
+    result = "[]";
   } else{
+    result="[";
     for (int i = 0; i < n; ++i)
     {
-      result += "<input type=""radio"" name=""ap"" value=""" + String(WiFi.SSID(i)) + """ checked=""checked"">" + String(WiFi.SSID(i)) + "<br>";
-      delay(10);
+      result += "\"" + String(WiFi.SSID(i)) + "\"";
+      if(i!=n-1)
+        result += ",";
     }
-
+    result+="]";
   }
   return result;
 }
@@ -31,7 +33,7 @@ void WifiClient(){
   quick_setup->CLIENT_SSID.toCharArray(ssid_buff,quick_setup->CLIENT_SSID.length()+1);
   quick_setup->CLIENT_Password.toCharArray(password_buff,quick_setup->CLIENT_Password.length()+1);
 
-  /*
+  
   Serial.println("Connecting with...");
   Serial.print('[');
   Serial.print(ssid_buff);
@@ -39,7 +41,7 @@ void WifiClient(){
   Serial.print('[');
   Serial.print(password_buff);
   Serial.println(']');
-  */
+  
 
   
   WiFi.mode(WIFI_STA);
