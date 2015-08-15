@@ -68,8 +68,8 @@ void QUICK_SETUP_CLASS::LoadClientSettings(){
   
   char ssid[32];
   char pw[32];
-  if(!read_string(0,ssid,32))Serial.println("SSID ReadFailed...");
-  if(!read_string(33,pw,32))Serial.println("PW ReadFailed...");
+  if(!read_string(0,ssid,32))Serial.println("SSID Read Failed...");
+  if(!read_string(33,pw,32))Serial.println("PW Read Failed...");
   
   quick_setup->CLIENT_SSID = ssid;
   quick_setup->CLIENT_Password = pw;

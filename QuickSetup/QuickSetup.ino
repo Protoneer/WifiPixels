@@ -1,13 +1,12 @@
 #include <ESP8266WiFi.h>
-//#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <PubSubClient.h>
 
 
 #include <EEPROM.h> // Needed to give config.h access
 #include "quick_setup.h"
 #include "wifi_helper.h"
-
-
+#include "mqtt_helper.h"
 
 void setup()
 {
@@ -31,9 +30,15 @@ void setup()
   quick_setup->LoadClientSettings();
   
   quick_setup->Start();  
+
+
+  // MQTT  
+  mqtt_helper = new MQTT_HELPER_CLASS();
+  mqtt_helper->mqttSetup(xxxx,xxxx,xxxx,xxxx,xxxx);
 }
 
 void loop()
 {
   quick_setup->Handle_Requests();
+  mqtt_helper->mqttLoop();
 }
