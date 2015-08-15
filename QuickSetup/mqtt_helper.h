@@ -1,20 +1,22 @@
 #include <ESP8266WiFi.h>
+#include <PubSubClient.h>
 
-//typedef void (*MessageCallback)  (const MQTT::Publish& pub); 
+typedef void(*callback_t)(const MQTT::Publish&);
 
 class MQTT_HELPER_CLASS
 {
   public:
-    void mqttSetup(String server,int port,String user,String password,String clientID);
+    void mqttSetup(String server,int port,String user,String password,String clientID,callback_t cb);
     void mqttLoop();
     //void OnMessageReceive();
     //void ConnectToMQTTServer(MessageCallback msgCallback);
-    void ConnectToMQTTServer();
+    void ConnectToMQTTServer(callback_t cb);
     String mqttServer;
     int mqttPort;
     String mqttUser;
     String mqttPassword;
     String mqttClientID;
+    callback_t mqttCB;
 };
 
 extern MQTT_HELPER_CLASS * mqtt_helper;

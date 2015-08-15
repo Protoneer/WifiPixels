@@ -11,33 +11,17 @@ MQTT_HELPER_CLASS * mqtt_helper;
 WiFiClient wclient;
 PubSubClient mqttClient(wclient);
 
-#define BUFFER_SIZE 100
-void callback(const MQTT::Publish& pub) {
-  Serial.print(pub.topic());
-  Serial.print(" => ");
-  if (pub.has_stream()) {
-    uint8_t buf[BUFFER_SIZE];
-    int read;
-    while (read = pub.payload_stream()->read(buf, BUFFER_SIZE)) {
-      Serial.write(buf, read);
-    }
-    pub.payload_stream()->stop();
-    Serial.println("");
-  } else
-    Serial.println(pub.payload_string());
-}
-
-
-void MQTT_HELPER_CLASS::mqttSetup(String server, int port, String user, String password, String clientID) {
+void MQTT_HELPER_CLASS::mqttSetup(String server, int port, String user, String password, String clientID,callback_t cb) {
     mqttServer = server;
     mqttPort = port;
     mqttUser = user;
     mqttPassword = password;
     mqttClientID = clientID;
+    mqttCB = cb;
 
     mqttClient.set_server(mqtt_helper->mqttServer, mqtt_helper->mqttPort);
 
-    mqtt_helper->ConnectToMQTTServer();   
+    mqtt_helper->ConnectToMQTTServer(mqtt_helper->mqttCB);   
 }
 
 void MQTT_HELPER_CLASS::mqttLoop() {
@@ -45,20 +29,20 @@ void MQTT_HELPER_CLASS::mqttLoop() {
   if (mqttClient.connected()) {
     mqttClient.loop();
   } else {
-    mqtt_helper->ConnectToMQTTServer();
+    mqtt_helper->ConnectToMQTTServer(mqtt_helper->mqttCB);
   }
   
 
 }
 
-void MQTT_HELPER_CLASS::ConnectToMQTTServer() {
+void MQTT_HELPER_CLASS::ConnectToMQTTServer(callback_t cb) {
   
   Serial.println("Connecting to MQTT server");
   if (mqttClient.connect(MQTT::Connect(mqttClientID).set_auth(mqttUser, mqttPassword))) {
     Serial.println("Connected to MQTT server");
 
     // TO-DO // Create inject functions
-    mqttClient.set_callback(callback);
+    mqttClient.set_callback(cb);
     mqttClient.subscribe("/test/DHT");
   } else {
     Serial.println("Could not connect to MQTT server");

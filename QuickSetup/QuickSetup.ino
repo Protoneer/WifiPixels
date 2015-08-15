@@ -8,6 +8,22 @@
 #include "wifi_helper.h"
 #include "mqtt_helper.h"
 
+#define BUFFER_SIZE 100
+void callback(const MQTT::Publish& pub) {
+  Serial.print(pub.topic());
+  Serial.print(" => ");
+  if (pub.has_stream()) {
+    uint8_t buf[BUFFER_SIZE];
+    int read;
+    while (read = pub.payload_stream()->read(buf, BUFFER_SIZE)) {
+      Serial.write(buf, read);
+    }
+    pub.payload_stream()->stop();
+    Serial.println("");
+  } else
+    Serial.println(pub.payload_string());
+}
+
 void setup()
 {
   // Serial
@@ -34,7 +50,7 @@ void setup()
 
   // MQTT  
   mqtt_helper = new MQTT_HELPER_CLASS();
-  mqtt_helper->mqttSetup(xxxx,xxxx,xxxx,xxxx,xxxx);
+  mqtt_helper->mqttSetup(xxx,xxx,xxx,xxx,xxx,callback);
 }
 
 void loop()
