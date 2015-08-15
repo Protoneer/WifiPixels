@@ -11,13 +11,14 @@ MQTT_HELPER_CLASS * mqtt_helper;
 WiFiClient wclient;
 PubSubClient mqttClient(wclient);
 
-void MQTT_HELPER_CLASS::mqttSetup(String server, int port, String user, String password, String clientID,callback_t cb) {
+void MQTT_HELPER_CLASS::mqttSetup(String server, int port, String user, String password, String clientID,callback_t cb,String topic) {
     mqttServer = server;
     mqttPort = port;
     mqttUser = user;
     mqttPassword = password;
     mqttClientID = clientID;
     mqttCB = cb;
+    mqttSubscriptionTopic = topic;
 
     mqttClient.set_server(mqtt_helper->mqttServer, mqtt_helper->mqttPort);
 
@@ -43,7 +44,7 @@ void MQTT_HELPER_CLASS::ConnectToMQTTServer(callback_t cb) {
 
     // TO-DO // Create inject functions
     mqttClient.set_callback(cb);
-    mqttClient.subscribe("/test/DHT");
+    mqttClient.subscribe(mqttSubscriptionTopic);
   } else {
     Serial.println("Could not connect to MQTT server");
   }

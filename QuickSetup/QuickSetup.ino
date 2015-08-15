@@ -8,20 +8,11 @@
 #include "wifi_helper.h"
 #include "mqtt_helper.h"
 
-#define BUFFER_SIZE 100
+bool LedState = true;
 void callback(const MQTT::Publish& pub) {
-  Serial.print(pub.topic());
-  Serial.print(" => ");
-  if (pub.has_stream()) {
-    uint8_t buf[BUFFER_SIZE];
-    int read;
-    while (read = pub.payload_stream()->read(buf, BUFFER_SIZE)) {
-      Serial.write(buf, read);
-    }
-    pub.payload_stream()->stop();
-    Serial.println("");
-  } else
-    Serial.println(pub.payload_string());
+
+  LedState = !LedState;
+  digitalWrite(0, LedState);
 }
 
 void setup()
@@ -49,8 +40,9 @@ void setup()
 
 
   // MQTT  
+  pinMode(0, OUTPUT);
   mqtt_helper = new MQTT_HELPER_CLASS();
-  mqtt_helper->mqttSetup(xxx,xxx,xxx,xxx,xxx,callback);
+  mqtt_helper->mqttSetup(xxx,xxx,xxx,xxx,xxx,callback,"/test/buttonPressed");
 }
 
 void loop()
