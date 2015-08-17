@@ -78,6 +78,6 @@ void QUICK_SETUP_CLASS::LoadClientSettings(){
 }
 
 void QUICK_SETUP_CLASS::SaveClientSettings(){  
-  if(!write_string(0,quick_setup->CLIENT_SSID,8))Serial.println("SSID Not Saved");
-  if(!write_string(33,quick_setup->CLIENT_Password,8))Serial.println("PW Not Saved");
+  if(!write_string(0,quick_setup->CLIENT_SSID,32))Serial.println("SSID Not Saved");
+  if(!write_string(33,quick_setup->CLIENT_Password,32))Serial.println("PW Not Saved");
 }
