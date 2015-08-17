@@ -88,6 +88,7 @@ void setup()
   // MQTT  
   //pinMode(0, OUTPUT);
   mqtt_helper = new MQTT_HELPER_CLASS();
+  //void mqttSetup(server,port,user,password,clientID,callbackFunction,topic);
   mqtt_helper->mqttSetup(xxx,xxx,xxx,xxx,xxx,callback,"/test/buttonPressed");
 }
 
