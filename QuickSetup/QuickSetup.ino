@@ -50,6 +50,8 @@ void CyclePixels(){
       SetAll(RgbColor(Counter,0, 0));
     } else if(LedColor == "GREEN"){
       SetAll(RgbColor(0,Counter, 0));
+    } else if(LedColor == "BLUE"){
+      SetAll(RgbColor(0,0,Counter));
     } else {
       SetAll(RgbColor(0,0, 0));
     }
@@ -88,8 +90,7 @@ void setup()
   // MQTT  
   //pinMode(0, OUTPUT);
   mqtt_helper = new MQTT_HELPER_CLASS();
-  //void mqttSetup(server,port,user,password,clientID,callbackFunction,topic);
-  mqtt_helper->mqttSetup(xxx,xxx,xxx,xxx,xxx,callback,"/test/buttonPressed");
+  mqtt_helper->mqttSetup("server",port,user,password,clientid,callback,"/test/buttonPressed");
 }
 
 void loop()
