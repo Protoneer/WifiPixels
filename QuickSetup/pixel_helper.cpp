@@ -1,9 +1,6 @@
 #include <NeoPixelBus.h>
 #include "pixel_helper.h"
 
-
-
-
 PIXEL_HELPER_CLASS * pixel_helper;
 
 #define pixelPin 2
@@ -23,72 +20,72 @@ RgbColor RGBStringToRGB(String input) {
   return (RgbColor) { R , G , B };
 }
 
-void SetAll(RgbColor colour){
-  for(int K=0;K<pixelCount;K++){
+void SetAll(RgbColor colour) {
+  for (int K = 0; K < pixelCount; K++) {
     strip.SetPixelColor(K, colour);
   }
 }
-void PIXEL_HELPER_CLASS::ProcessCommand(String input){
+
+PIXEL_HELPER_CLASS::PIXEL_HELPER_CLASS() {
+  // Clear LEDS
+  SetAll(RgbColor(0,0,0));
+  strip.Show();
+
+  // Turn onboard led off
+  pinMode(BUILTIN_LED, OUTPUT);
+  digitalWrite(BUILTIN_LED, LOW);
+}
+
+// RGBBLEND,0.0.0,0.20.0,0,3
+void PIXEL_HELPER_CLASS::ProcessCommand(String input) {
   if (input.startsWith("RGBBLEND")) {
     LEDMode = RGBMode_BLEND;
     input.remove(0, 9);
     BlendModeSettings.RGB1 = RGBStringToRGB(input.substring(0, input.indexOf(',')));
 
-    input.remove(0, input.indexOf(',')+1);
+    input.remove(0, input.indexOf(',') + 1);
     BlendModeSettings.RGB2 = RGBStringToRGB(input.substring(0, input.indexOf(',')));
-    
-    input.remove(0, input.indexOf(',')+1);
+
+    input.remove(0, input.indexOf(',') + 1);
     BlendModeSettings.Cycles = input.substring(0, input.indexOf(',')).toInt();
 
-    input.remove(0, input.indexOf(',')+1);
+    input.remove(0, input.indexOf(',') + 1);
     BlendModeSettings.Interval = input.toInt();
 
     BlendModeSettings.CycleNumber = 0;
-    BlendModeSettings.Progress = 0;  
+    BlendModeSettings.Progress = 0;
     BlendModeSettings.Direction = 1;
   }
 }
 
-void DoBlendMode(){
+void DoBlendMode() {
   unsigned long currentMillis = millis();
-  
-  if(currentMillis - pixel_helper->previousMillis > pixel_helper->BlendModeSettings.Interval) {
-    pixel_helper->previousMillis = currentMillis;   
+
+  if (currentMillis - pixel_helper->previousMillis > pixel_helper->BlendModeSettings.Interval) {
+    pixel_helper->previousMillis = currentMillis;
 
     // Step Progress and control direction on Min and max
     pixel_helper->BlendModeSettings.Progress = pixel_helper->BlendModeSettings.Progress + pixel_helper->BlendModeSettings.Direction;
 
-    if(pixel_helper->BlendModeSettings.Progress > 254){
+    if (pixel_helper->BlendModeSettings.Progress > 254) {
       pixel_helper->BlendModeSettings.Direction = -1;
     }
-    if(pixel_helper->BlendModeSettings.Progress < 1){
+    if (pixel_helper->BlendModeSettings.Progress < 1) {
       pixel_helper->BlendModeSettings.Direction = 1;
     }
-    
-    RgbColor rgb;    
-    rgb = rgb.LinearBlend(pixel_helper->BlendModeSettings.RGB1,pixel_helper->BlendModeSettings.RGB2,pixel_helper->BlendModeSettings.Progress);
+
+    RgbColor rgb;
+    rgb = rgb.LinearBlend(pixel_helper->BlendModeSettings.RGB1, pixel_helper->BlendModeSettings.RGB2, pixel_helper->BlendModeSettings.Progress);
     SetAll(rgb);
 
-    /*
-    if(pixel_helper->LedColor == "RED"){
-      SetAll(RgbColor(Counter,0, 0));
-    } else if(LedColor == "GREEN"){
-      SetAll(RgbColor(0,Counter, 0));
-    } else if(LedColor == "BLUE"){
-      SetAll(RgbColor(0,0,Counter));
-    } else {
-      SetAll(RgbColor(0,0, 0));
-    }
-    */
 
-    
-    strip.Show(); 
+    strip.Show();
   }
 
 }
 
-void PIXEL_HELPER_CLASS::pixelLoop(){
-  if(LEDMode == RGBMode_BLEND){
+void PIXEL_HELPER_CLASS::pixelLoop() {
+  if (LEDMode == RGBMode_BLEND) {
     DoBlendMode();
   }
 }

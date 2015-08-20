@@ -18,6 +18,7 @@ struct RGBBLEND {
 class PIXEL_HELPER_CLASS
 {
   public:
+    PIXEL_HELPER_CLASS();
     void pixelLoop();
     void ProcessCommand(String command);
     int LEDMode = RGBMode_Blank;
