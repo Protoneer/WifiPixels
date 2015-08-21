@@ -17,7 +17,7 @@ RgbColor RGBStringToRGB(String input) {
   index = input.indexOf('.', index + 1);
   int B = input.substring(index + 1).toInt();
 
-  return (RgbColor) { R , G , B };
+  return RgbColor( R , G , B );
 }
 
 void SetAll(RgbColor colour) {
@@ -36,26 +36,42 @@ PIXEL_HELPER_CLASS::PIXEL_HELPER_CLASS() {
   digitalWrite(BUILTIN_LED, LOW);
 }
 
+
+
+void ParseRGBBLEND(String input) {
+	pixel_helper->LEDMode = RGBMode_BLEND;
+	input.remove(0, 9);
+	pixel_helper->BlendModeSettings.RGB1 = RGBStringToRGB(input.substring(0, input.indexOf(',')));
+
+	input.remove(0, input.indexOf(',') + 1);
+	pixel_helper->BlendModeSettings.RGB2 = RGBStringToRGB(input.substring(0, input.indexOf(',')));
+
+	input.remove(0, input.indexOf(',') + 1);
+	pixel_helper->BlendModeSettings.Cycles = input.substring(0, input.indexOf(',')).toInt();
+
+	input.remove(0, input.indexOf(',') + 1);
+	pixel_helper->BlendModeSettings.Interval = input.toInt();
+
+	pixel_helper->BlendModeSettings.CycleNumber = 0;
+	pixel_helper->BlendModeSettings.Progress = 0;
+	pixel_helper->BlendModeSettings.Direction = 1;
+	pixel_helper->previousMillis = millis() - pixel_helper->BlendModeSettings.Interval;
+}
+
+void ParseCUSTOM(String input) {
+
+}
+
 // RGBBLEND,0.0.0,0.20.0,0,3
 void PIXEL_HELPER_CLASS::ProcessCommand(String input) {
-  if (input.startsWith("RGBBLEND")) {
-    LEDMode = RGBMode_BLEND;
-    input.remove(0, 9);
-    BlendModeSettings.RGB1 = RGBStringToRGB(input.substring(0, input.indexOf(',')));
+	if (input.startsWith("RGBBLEND")) {
+		ParseRGBBLEND(input);
+	}
+	else if (input.startsWith("CUSTOM\n\r"))
+	{
+		ParseCUSTOM(input);
+	}
 
-    input.remove(0, input.indexOf(',') + 1);
-    BlendModeSettings.RGB2 = RGBStringToRGB(input.substring(0, input.indexOf(',')));
-
-    input.remove(0, input.indexOf(',') + 1);
-    BlendModeSettings.Cycles = input.substring(0, input.indexOf(',')).toInt();
-
-    input.remove(0, input.indexOf(',') + 1);
-    BlendModeSettings.Interval = input.toInt();
-
-    BlendModeSettings.CycleNumber = 0;
-    BlendModeSettings.Progress = 0;
-    BlendModeSettings.Direction = 1;
-  }
 }
 
 void DoBlendMode() {
