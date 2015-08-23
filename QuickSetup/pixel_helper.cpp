@@ -64,6 +64,8 @@ void ParseCUSTOM(String input) {
 
 // RGBBLEND,0.0.0,0.20.0,0,3
 void PIXEL_HELPER_CLASS::ProcessCommand(String input) {
+  Serial.print("ProcessCommand:");
+  Serial.println(input);
 	if (input.startsWith("RGBBLEND")) {
 		ParseRGBBLEND(input);
 	}
@@ -100,9 +102,27 @@ void DoBlendMode() {
 
 }
 
+String SerialInput = "";
+
 void PIXEL_HELPER_CLASS::pixelLoop() {
   if (LEDMode == RGBMode_BLEND) {
     DoBlendMode();
   }
+  
+  if(ProcessSerial){
+    while (Serial.available() > 0)
+    {
+        char recieved = Serial.read();
+        SerialInput += recieved; 
+
+        // Process message when new line character is recieved
+        if (recieved == '\n')
+        {
+            ProcessCommand(SerialInput);
+            SerialInput = "";
+        }
+    }
+  }
+ 
 }
 

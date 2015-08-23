@@ -22,6 +22,7 @@ class PIXEL_HELPER_CLASS
     void pixelLoop();
     void ProcessCommand(String command);
     int LEDMode = RGBMode_Blank;
+    bool ProcessSerial = false;
 
     RGBBLEND BlendModeSettings;
     long previousMillis = 0;

@@ -30,3 +30,5 @@
 *.filters
 *.xml
 .QuickSetup.vsarduino.h
+*.sln
+*.suo

@@ -11,7 +11,6 @@
 #include <NeoPixelBus.h>
 
 void callback(const MQTT::Publish& pub) {
-  Serial.println(pub.payload_string());
   pixel_helper->ProcessCommand(pub.payload_string());
 }
 
@@ -20,6 +19,7 @@ void setup()
 {
   //Pixels
   pixel_helper = new PIXEL_HELPER_CLASS();
+  pixel_helper->ProcessSerial = true;
   
   // Serial
   Serial.begin(115200);
