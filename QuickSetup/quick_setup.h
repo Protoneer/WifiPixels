@@ -1,3 +1,6 @@
+#ifndef Q_SETUP_H
+#define Q_SETUP_H
+
 #include <ESP8266WiFi.h>
 #define AP_MODE      1
 #define CLIENT_MODE   2
@@ -30,3 +33,5 @@ class QUICK_SETUP_CLASS
 };
 
 extern QUICK_SETUP_CLASS * quick_setup;
+
+#endif

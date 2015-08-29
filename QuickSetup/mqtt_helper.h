@@ -1,3 +1,5 @@
+#ifndef MQTT_H
+#define MQTT_H
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
@@ -19,3 +21,5 @@ class MQTT_HELPER_CLASS
 };
 
 extern MQTT_HELPER_CLASS * mqtt_helper;
+
+#endif
