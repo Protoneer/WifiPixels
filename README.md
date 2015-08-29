@@ -1,3 +1,6 @@
+# WifiPixels
+WifiPixels are a combination of a ESP8266 Wifi unit combined with a NeoPixel LED ring all in one.
+
 # QuickSetup
 
 Easy way to connect an ESP8266 IOT device to a Wifi Network.
