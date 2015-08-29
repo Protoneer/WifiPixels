@@ -24,7 +24,6 @@ class PIXEL_HELPER_CLASS
     
     NeoPixelBus strip = NeoPixelBus(pixelCount, pixelPin);
 
-    //RGBBLEND BlendModeSettings;
     long previousMillis = 0;
 };
 
