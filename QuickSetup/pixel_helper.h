@@ -10,17 +10,6 @@
 #define pixelPin 2
 #define pixelCount 16
 
-struct RGBBLEND {
-  RgbColor RGB1;    // Start Color
-  RgbColor RGB2;    // End Color
-  int Cycles;       // Blend Cycles. 0=continuous
-  int Interval;     // Delay between each loop cycle
-  int CycleNumber;  // Current cycle // TO-DO
-  int Direction;    // RGB1->RGB2 or RGB2->RGB1
-  int Progress;     // 0-255 0=RGB1 255=RGB2 
-  int ProgressSteps; // Rate of progress // TO-DO 
-};
-
 class PIXEL_HELPER_CLASS
 {
   public:
@@ -35,7 +24,7 @@ class PIXEL_HELPER_CLASS
     
     NeoPixelBus strip = NeoPixelBus(pixelCount, pixelPin);
 
-    RGBBLEND BlendModeSettings;
+    //RGBBLEND BlendModeSettings;
     long previousMillis = 0;
 };
 
