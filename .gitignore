@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+*.vcxproj
+*.filters
+*.xml
+.QuickSetup.vsarduino.h
+*.sln
+*.suo

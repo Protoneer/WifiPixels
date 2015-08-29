@@ -1,3 +1,6 @@
+#ifndef WEB_INT_H
+#define WEB_INT_H
+
 class WEBINTERFACE_CLASS
 {
   public:
@@ -8,3 +11,5 @@ class WEBINTERFACE_CLASS
 
 
 extern WEBINTERFACE_CLASS * web_interface;
+
+#endif

@@ -1,16 +1,26 @@
 #include <ESP8266WiFi.h>
-//#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-
+#include <PubSubClient.h>
 
 #include <EEPROM.h> // Needed to give config.h access
 #include "quick_setup.h"
 #include "wifi_helper.h"
+#include "mqtt_helper.h"
+#include "pixel_helper.h"
 
+#include <NeoPixelBus.h>
+
+void callback(const MQTT::Publish& pub) {
+  pixel_helper->ProcessCommand(pub.payload_string());
+}
 
 
 void setup()
 {
+  //Pixels
+  pixel_helper = new PIXEL_HELPER_CLASS();
+  pixel_helper->ProcessSerial = true;
+  
   // Serial
   Serial.begin(115200);
   Serial.println("");
@@ -31,9 +41,16 @@ void setup()
   quick_setup->LoadClientSettings();
   
   quick_setup->Start();  
+
+
+  // MQTT  
+  mqtt_helper = new MQTT_HELPER_CLASS();
+  mqtt_helper->mqttSetup("server",port,user,password,clientid,callback,"/test/buttonPressed");
 }
 
 void loop()
 {
   quick_setup->Handle_Requests();
+  mqtt_helper->mqttLoop();
+  pixel_helper->pixelLoop();
 }

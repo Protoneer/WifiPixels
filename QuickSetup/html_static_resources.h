@@ -1,3 +1,6 @@
+#ifndef HTML_STATIS_H
+#define HTML_STATIS_H
+
 #include <ESP8266WiFi.h>
 const String wifi_html  = 
 "<!DOCTYPE html>"
@@ -60,3 +63,5 @@ const String wifi_html  =
 " </form>"
 "</body>"
 "</html>";
+
+#endif

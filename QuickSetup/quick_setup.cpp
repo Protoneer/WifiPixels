@@ -32,8 +32,8 @@ bool read_string(word pos, char byte_buffer[], word size_max)
 //write a string (array of byte with a 0x00  at the end)
 bool write_string(word pos, String value, word size_buffer)
 {
-  char byte_buffer[sizeof(value)];
-  value.toCharArray(byte_buffer, sizeof(byte_buffer));
+  char byte_buffer[value.length()+1];
+  value.toCharArray(byte_buffer, value.length()+1);
   
   //check if parameters are acceptable
   if (size_buffer==0 ||  pos+size_buffer+1 > EEPROM_SIZE || byte_buffer== NULL)return false;
@@ -64,13 +64,12 @@ void QUICK_SETUP_CLASS::Handle_Requests(){
 }
 
 void QUICK_SETUP_CLASS::LoadClientSettings(){
-
-  
   char ssid[32];
   char pw[32];
-  if(!read_string(0,ssid,32))Serial.println("SSID ReadFailed...");
-  if(!read_string(33,pw,32))Serial.println("PW ReadFailed...");
-  
+  if(!read_string(0,ssid,32))Serial.println("SSID Read Failed...");
+  if(!read_string(33,pw,32))Serial.println("PW Read Failed...");
+
+
   quick_setup->CLIENT_SSID = ssid;
   quick_setup->CLIENT_Password = pw;
   quick_setup->Mode = CLIENT_MODE;
@@ -78,6 +77,6 @@ void QUICK_SETUP_CLASS::LoadClientSettings(){
 }
 
 void QUICK_SETUP_CLASS::SaveClientSettings(){  
-  if(!write_string(0,quick_setup->CLIENT_SSID,8))Serial.println("SSID Not Saved");
-  if(!write_string(33,quick_setup->CLIENT_Password,8))Serial.println("PW Not Saved");
+  if(!write_string(0,quick_setup->CLIENT_SSID,32))Serial.println("SSID Not Saved");
+  if(!write_string(33,quick_setup->CLIENT_Password,32))Serial.println("PW Not Saved");
 }
