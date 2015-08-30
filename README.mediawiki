@@ -1,4 +1,4 @@
-=WifiPixels=
+WifiPixels
 WifiPixels are a combination of a ESP8266 Wifi unit combined with a NeoPixel LED ring all in one.
 
 ==Updating Firmware==
