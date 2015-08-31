@@ -1,7 +1,5 @@
 <img src="http://wiki.protoneer.co.nz/images/c/c6/WifiPixels_Top.JPG"/>
 
-[http://wiki.protoneer.co.nz/WifiPixels WifiPixels] are a combination of a ESP8266 Wifi unit combined with a NeoPixel(Addressable RGB) LED ring all in one.
-
 ==Updating Firmware==
 * Follow the instructions from Adafruit on how to install the ESP8266 Board definitions in Arduino. https://learn.adafruit.com/adafruit-huzzah-esp8266-breakout/using-arduino-ide
 * Put the board into bootloader mode by holding the BOOT button and pressing the RESET button. The RED indicator led should stay on at half brightness indicating that the device is in Bootloader mode.
