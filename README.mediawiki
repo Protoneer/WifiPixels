@@ -1,4 +1,6 @@
-WifiPixels are a combination of a ESP8266 Wifi unit combined with a NeoPixel(Addressable RGB) LED ring all in one.
+<img src="http://wiki.protoneer.co.nz/images/c/c6/WifiPixels_Top.JPG"/>
+
+[http://wiki.protoneer.co.nz/WifiPixels WifiPixels] are a combination of a ESP8266 Wifi unit combined with a NeoPixel(Addressable RGB) LED ring all in one.
 
 ==Updating Firmware==
 * Follow the instructions from Adafruit on how to install the ESP8266 Board definitions in Arduino. https://learn.adafruit.com/adafruit-huzzah-esp8266-breakout/using-arduino-ide
