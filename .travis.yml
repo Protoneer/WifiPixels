@@ -18,6 +18,7 @@ before_install:
   - sudo ls /usr/local/share/arduino/libraries/NeoPixelBus
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
+  - sudo ls ~/.arduino
   - arduino --board esp8266com:esp8266:generic --save-prefs
 script:
   - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
