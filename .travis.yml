@@ -11,7 +11,7 @@ before_install:
   - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient.tar.gz
   - tar xf pubsubclient.tar.gz
   - sudo mv pubsubclient-1.99.1 /usr/local/share/arduino/libraries
-  - sudo mv /usr/local/share/arduino/libraries/ /usr/local/share/arduino/libraries/pubsubclient
+  - sudo mv /usr/local/share/arduino/libraries/pubsubclient-1.99.1 /usr/local/share/arduino/libraries/pubsubclient
   - sudo ls /usr/local/share/arduino/libraries
   - wget https://github.com/Makuna/NeoPixelBus/archive/master.zip -O NeoPixelBus.zip
   - sudo apt-get install unzip
