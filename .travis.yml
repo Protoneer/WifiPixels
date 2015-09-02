@@ -9,7 +9,8 @@ before_install:
   - sudo ls /usr/local/share/arduino
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
   - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz
-  - tar xf pubsubclient-1.99.1.tar.gz
+  - tar xf v-1.99.1.tar.gz
+  - sudo ls
   - sudo mv pubsubclient-1.99.1 /usr/local/share/arduino/arduino/libraries
   - sudo ls /usr/local/share/arduino/arduino/libraries
 install:
