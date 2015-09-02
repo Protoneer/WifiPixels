@@ -8,12 +8,13 @@ before_install:
   - sudo mv arduino-1.6.5 /usr/local/share/arduino
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
 install:
-  - ln -s $PWD /usr/local/share/arduino/libraries/Adafruit_FONA
+  - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
+  - arduino --board esp8266com:esp8266:generic --save-prefs
   - arduino --install-library "Adafruit SleepyDog Library,Adafruit MQTT Library"
 script:
-  - arduino --verify --board arduino:avr:uno $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
-  - arduino --verify --board arduino:avr:uno $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
-  - arduino --verify --board arduino:avr:uno $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino
+  - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
+  - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
+  - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino
 notifications:
   email:
     on_success: change
