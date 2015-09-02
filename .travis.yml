@@ -11,7 +11,7 @@ before_install:
   - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient-v1.99.1.tar.gz
   - tar xf pubsubclient-v1.99.1.tar.gz
   - sudo ls
-  - sudo mv pubsubclient-1.99.1 /usr/local/share/arduino/arduino/libraries
+  - sudo mv pubsubclient-1.99.1 /usr/local/share/arduino/libraries
   - sudo ls /usr/local/share/arduino/arduino/libraries
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
