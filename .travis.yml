@@ -14,10 +14,10 @@ before_install:
   - sudo mv /usr/local/share/arduino/libraries/pubsubclient-1.99.1 /usr/local/share/arduino/libraries/pubsubclient
   - sudo ls /usr/local/share/arduino/libraries
   - sudo git clone https://github.com/Makuna/NeoPixelBus.git
-  - sudo ls
+  - sudo mv NeoPixelBus /usr/local/share/arduino/libraries
+  - sudo ls /usr/local/share/arduino/libraries/NeoPixelBus
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
-  - arduino --install-library "NeoPixelBus"
   - arduino --board esp8266com:esp8266:generic --save-prefs
 script:
   - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
