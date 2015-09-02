@@ -1,5 +1,5 @@
 <img src="http://wiki.protoneer.co.nz/images/c/c6/WifiPixels_Top.JPG"/>
-[https://travis-ci.org/Protoneer/WifiPixels [<img src="https://travis-ci.org/Protoneer/WifiPixels.svg?branch=master"/>]]
+[https://travis-ci.org/Protoneer/WifiPixels <img src="https://travis-ci.org/Protoneer/WifiPixels.svg?branch=master"/>]
 
 ==Updating Firmware== 
 * Follow the instructions from Adafruit on how to install the ESP8266 Board definitions in Arduino. https://learn.adafruit.com/adafruit-huzzah-esp8266-breakout/using-arduino-ide
