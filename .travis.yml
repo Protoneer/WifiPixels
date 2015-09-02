@@ -11,9 +11,9 @@ install:
   - ln -s $PWD /usr/local/share/arduino/libraries/Adafruit_FONA
   - arduino --install-library "Adafruit SleepyDog Library,Adafruit MQTT Library"
 script:
-  - arduino --verify --board arduino:avr:uno $PWD/examples/FONAtest/FONAtest.ino
-  - arduino --verify --board arduino:avr:uno $PWD/examples/IncomingCall/IncomingCall.ino
-  - arduino --verify --board arduino:avr:uno $PWD/examples/AdafruitIO_GPS/AdafruitIO_GPS.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino
 notifications:
   email:
     on_success: change
