@@ -8,10 +8,14 @@ before_install:
   - sudo mv arduino-1.6.5 /usr/local/share/arduino
   - sudo ls /usr/local/share/arduino
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
-  - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient-v1.99.1.tar.gz
-  - tar xf pubsubclient-v1.99.1.tar.gz
+  - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient.tar.gz
+  - tar xf pubsubclient.tar.gz
   - sudo mv pubsubclient-1.99.1 /usr/local/share/arduino/libraries
+  - sudo mv /usr/local/share/arduino/libraries/ /usr/local/share/arduino/libraries/pubsubclient
   - sudo ls /usr/local/share/arduino/libraries
+  - wget https://github.com/Makuna/NeoPixelBus/archive/master.zip -O NeoPixelBus.zip
+  - sudo apt-get install unzip
+  - unzip NeoPixelBus.zip
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
   - arduino --install-library "NeoPixelBus"
