@@ -3,8 +3,8 @@
 #include "pixel_helper.h"
 
 struct CUSTOMPATTERN {
-  // int[255][16][3] Patterns;
-  // int[255] PatternIntervals;
+  int[255][16][3] Patterns;
+  int[255] PatternIntervals;
   int Index;			// Current position in the Animation array
   int NumberOfPattern;  // Set the number of animations
 };
@@ -13,10 +13,25 @@ CUSTOMPATTERN cp;
 
 void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
 	p_helper->LEDMode = CustomPattern_Mode;
+	
+	// Set Patterns
+	cp.Patterns[0] = {0};
+	cp.Patterns[1] = {10};
+	cp.Patterns[2] = {0};
+	cp.Patterns[3] = {10};	
+	
+	// Set Intervals between changes.
+	cp.PatternIntervals[0] = 1000;
+	cp.PatternIntervals[1] = 1000;
+	cp.PatternIntervals[2] = 1000;
+	cp.PatternIntervals[3] = 1000;	
+	
+	NumberOfPattern = 4;
+	Index = 0;
 }
 
 void DoCustomPatternMode(PIXEL_HELPER_CLASS* p_helper) {
-    p_helper->SetAll({0.0.0});
+    p_helper->SetAll({0,0,0});
     p_helper->strip.Show();	
 }
 
