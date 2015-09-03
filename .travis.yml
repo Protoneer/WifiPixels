@@ -3,13 +3,13 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
   - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient.tar.gz
-  - tar xf pubsubclient.tar.gz
-  - sudo mv pubsubclient-1.99.1 /usr/local/share/arduino/libraries
-  - sudo mv /usr/local/share/arduino/libraries/pubsubclient-1.99.1 /usr/local/share/arduino/libraries/pubsubclient
-  - sudo ls /usr/local/share/arduino/libraries
-  - sudo git clone https://github.com/Makuna/NeoPixelBus.git
-  - sudo mv NeoPixelBus /usr/local/share/arduino/libraries
-  - sudo ls /usr/local/share/arduino/libraries/NeoPixelBus  
+#  - tar xf pubsubclient.tar.gz
+#  - mv pubsubclient-1.99.1 /usr/local/share/arduino/libraries
+#  - mv /usr/local/share/arduino/libraries/pubsubclient-1.99.1 /usr/local/share/arduino/libraries/pubsubclient
+#  - ls /usr/local/share/arduino/libraries
+  - git clone https://github.com/Makuna/NeoPixelBus.git
+  - mv NeoPixelBus /usr/local/share/arduino/libraries
+  - ls /usr/local/share/arduino/libraries/NeoPixelBus  
 script:
   - arduino --board esp8266:esp8266:generic --save-prefs
   - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
