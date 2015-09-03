@@ -19,7 +19,7 @@ before_install:
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
   - sudo ls /usr/local/share/arduino/
-  - sudo ls ~/.arduino
+  - sudo ls ~/
   - arduino --board esp8266com:esp8266:generic --save-prefs
 script:
   - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
