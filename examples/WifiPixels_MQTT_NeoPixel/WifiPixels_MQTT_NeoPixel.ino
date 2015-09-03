@@ -45,7 +45,7 @@ void setup()
 
   // MQTT  
   mqtt_helper = new MQTT_HELPER_CLASS();
-  mqtt_helper->mqttSetup("m11.cloudmqtt.com",xxx,"xxx","xxx","Client3451",callback,"/test/buttonPressed");
+  mqtt_helper->mqttSetup("m11.cloudmqtt.com",0,"xxx","xxx","Client3451",callback,"/test/buttonPressed");
 }
 
 void loop()
