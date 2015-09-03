@@ -13,7 +13,7 @@ CUSTOMPATTERN cp;
 
 void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
 	p_helper->LEDMode = CustomPattern_Mode;
-	
+	/*
 	// Set Patterns
 	cp.Patterns[0] = {{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,},{0,0,0,}};
 	cp.Patterns[1] = {{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0},{10,0,0}};
@@ -25,7 +25,7 @@ void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
 	cp.PatternIntervals[1] = 1000;
 	cp.PatternIntervals[2] = 1000;
 	cp.PatternIntervals[3] = 1000;	
-	
+	*/
 	NumberOfPattern = 4;
 	Index = 0;
 }
