@@ -17,9 +17,10 @@ before_install:
   - sudo mv NeoPixelBus /usr/local/share/arduino/libraries
   - sudo ls /usr/local/share/arduino/libraries/NeoPixelBus
 install:
-  - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
   - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
+  - arduino --install-boards esp8266:esp8266
   - arduino --board esp8266com:esp8266:generic --save-prefs
+  - ln -s $PWD /usr/local/share/arduino/libraries/WifiPixels
 script:
   - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
   - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
