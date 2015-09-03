@@ -1,0 +1,13 @@
+language: c
+sudo: false
+before_install:
+  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+script:
+  - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
+  - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
+  - arduino --verify --board esp8266com:esp8266:generic $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
+  
+notifications:
+  email:
+    on_success: change
+    on_failure: change
