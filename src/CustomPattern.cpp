@@ -2,6 +2,7 @@
 #include "CustomPattern.h"
 #include "pixel_helper.h"
 
+/*
 struct CUSTOMPATTERN {
   int Patterns[255][16][3];
   int PatternIntervals[255];
@@ -10,6 +11,7 @@ struct CUSTOMPATTERN {
 };
 
 CUSTOMPATTERN cp;
+*/
 
 void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
 	p_helper->LEDMode = CustomPattern_Mode;
