@@ -8,6 +8,7 @@ before_install:
 #  - mv /usr/local/share/arduino/libraries/pubsubclient-1.99.1 /usr/local/share/arduino/libraries/pubsubclient
 #  - ls /usr/local/share/arduino/libraries
   - git clone https://github.com/Makuna/NeoPixelBus.git
+  - ls
   - mv NeoPixelBus /usr/local/share/arduino/libraries
   - ls /usr/local/share/arduino/libraries/NeoPixelBus  
 script:
