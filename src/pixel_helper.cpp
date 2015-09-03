@@ -1,6 +1,7 @@
 #include <NeoPixelBus.h>
 #include "pixel_helper.h"
 #include "BlendRGB.h"
+#include "CustomPattern.h"
 
 PIXEL_HELPER_CLASS * pixel_helper;
 
@@ -44,6 +45,9 @@ void PIXEL_HELPER_CLASS::ProcessCommand(String input) {
 	if (input.startsWith("RGBBLEND")) {
 		ParseRGBBLEND(input,pixel_helper);
 	}
+	if (input.startsWith("CUSTOMPATTERN")) {
+		ParseCustomPattern(input,pixel_helper);
+	}
 
 }
 
@@ -52,6 +56,8 @@ String SerialInput = "";
 void PIXEL_HELPER_CLASS::pixelLoop() {
   if (LEDMode == RGBMode_BLEND) {
     DoBlendMode(pixel_helper);
+  } else if(LEDMode == RGBMode_BLEND){
+	DoCustomPatternMode(pixel_helper);  
   }
   
   if(ProcessSerial){
