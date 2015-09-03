@@ -1,7 +1,8 @@
 language: c
 sudo: false
 before_install:
-  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+#  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+  - source <(curl -SLs https://raw.githubusercontent.com/Protoneer/Travis-CI-ESP8266-Initializer/master/install.sh)
   - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient.tar.gz
   - tar xf pubsubclient.tar.gz
   - mv pubsubclient-1.99.1 $HOME/arduino_ide/libraries
