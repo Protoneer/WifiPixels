@@ -25,9 +25,10 @@ void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
 	cp.PatternIntervals[1] = 1000;
 	cp.PatternIntervals[2] = 1000;
 	cp.PatternIntervals[3] = 1000;	
+	
+	cp.NumberOfPattern = 4;
+	cp.Index = 0;
 	*/
-	NumberOfPattern = 4;
-	Index = 0;
 }
 
 void DoCustomPatternMode(PIXEL_HELPER_CLASS* p_helper) {
