@@ -15,7 +15,6 @@ script:
   - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
   - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
   - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
-  
 notifications:
   email:
     on_success: change
