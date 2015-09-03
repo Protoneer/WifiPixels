@@ -7,10 +7,8 @@ before_install:
   - tar xf pubsubclient.tar.gz
   - mv pubsubclient-1.99.1 $HOME/arduino_ide/libraries
   - mv $HOME/arduino_ide/libraries/pubsubclient-1.99.1 $HOME/arduino_ide/libraries/pubsubclient
-  - ls $HOME/arduino_ide/libraries
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
-  - ls $HOME/arduino_ide/libraries
 script:
   - arduino --board esp8266:esp8266:generic --save-prefs
   - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
