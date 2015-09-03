@@ -4,7 +4,7 @@
 #include <ESP8266WiFi.h>
 #include "pixel_helper.h"
 
-void DoBlendMode(PIXEL_HELPER_CLASS*);
-void ParseRGBBLEND(String,PIXEL_HELPER_CLASS*);
+void DoCustomPatternMode(PIXEL_HELPER_CLASS*);
+void ParseCustomPattern(String,PIXEL_HELPER_CLASS*);
 
 #endif
