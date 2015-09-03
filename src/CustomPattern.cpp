@@ -3,8 +3,8 @@
 #include "pixel_helper.h"
 
 struct CUSTOMPATTERN {
-  int[255][16][3] Patterns;
-  int[255] PatternIntervals;
+  int Patterns[255][16][3] = {};
+  int PatternIntervals[255] = {};
   int Index;			// Current position in the Animation array
   int NumberOfPattern;  // Set the number of animations
 };
