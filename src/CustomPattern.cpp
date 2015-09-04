@@ -60,6 +60,68 @@ void TestPatternInjector(){
   A1.Cycles = 0;
 }
 
+void ClearFrame(RgbColor *frame){
+  for(int K=0;K<leds;K++){
+    frame[K] = RgbColor(0,0,0);
+  }
+}
+
+void TestPatternInjector2(){
+  ClearFrame(A1.Frames[0]);
+  A1.Frames[0][0] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[1]);
+  A1.Frames[1][1] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[2]);
+  A1.Frames[2][2] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[3]);
+  A1.Frames[3][3] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[4]);
+  A1.Frames[4][4] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[5]);
+  A1.Frames[5][5] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[6]);
+  A1.Frames[6][6] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[7]);
+  A1.Frames[7][7] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[8]);
+  A1.Frames[8][8] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[9]);
+  A1.Frames[9][9] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[10]);
+  A1.Frames[10][10] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[11]);
+  A1.Frames[11][11] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[12]);
+  A1.Frames[12][12] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[13]);
+  A1.Frames[13][13] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[14]);
+  A1.Frames[14][14] = RgbColor(30,0,0);
+  ClearFrame(A1.Frames[15]);
+  A1.Frames[15][15] = RgbColor(30,0,0);
+
+  A1.FrameIntervals[0] = 50;
+  A1.FrameIntervals[1] = 45;
+  A1.FrameIntervals[2] = 41;
+  A1.FrameIntervals[3] = 35;
+  A1.FrameIntervals[4] = 29;
+  A1.FrameIntervals[5] = 21;
+  A1.FrameIntervals[6] = 14;
+  A1.FrameIntervals[7] = 6;
+  A1.FrameIntervals[8] = 2;
+  A1.FrameIntervals[9] = 6;
+  A1.FrameIntervals[10] = 14;
+  A1.FrameIntervals[11] = 21;
+  A1.FrameIntervals[12] = 29;
+  A1.FrameIntervals[13] = 35;
+  A1.FrameIntervals[14] = 41;
+  A1.FrameIntervals[15] = 45;
+  
+  A1.Index = maxFrames;
+
+  A1.Cycles = 0;
+}
+
 
 int IncrementIndex(int index,int *intervals,int maxTries ){
     index++;
@@ -84,7 +146,8 @@ void SetPixels(PIXEL_HELPER_CLASS* p_helper,RgbColor *frame){
 
 void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
   p_helper->LEDMode = CustomPattern_Mode;
-  TestPatternInjector();
+  //TestPatternInjector();
+  TestPatternInjector2();
 }
 
 void DoCustomPatternMode(PIXEL_HELPER_CLASS* p_helper) {
@@ -94,7 +157,6 @@ void DoCustomPatternMode(PIXEL_HELPER_CLASS* p_helper) {
     p_helper->previousMillis = currentMillis;
     
     A1.Index = IncrementIndex(A1.Index,A1.FrameIntervals,maxFrames+20);
-    Serial.println(A1.Index); 
     
     SetPixels(p_helper,A1.Frames[A1.Index]);    
 
