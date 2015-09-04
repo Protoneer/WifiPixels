@@ -56,8 +56,8 @@ String SerialInput = "";
 void PIXEL_HELPER_CLASS::pixelLoop() {
   if (LEDMode == RGBMode_BLEND) {
     DoBlendMode(pixel_helper);
-  } else if(LEDMode == RGBMode_BLEND){
-	DoCustomPatternMode(pixel_helper);  
+  } else if(LEDMode == CustomPattern_Mode){
+	  DoCustomPatternMode(pixel_helper);  
   }
   
   if(ProcessSerial){
