@@ -1,4 +1,3 @@
-[https://travis-ci.org/Protoneer/WifiPixels <img src="https://travis-ci.org/Protoneer/WifiPixels.svg?branch=master"/>][https://coveralls.io/github/Protoneer/WifiPixels?branch=master <img src='https://coveralls.io/repos/Protoneer/WifiPixels/badge.svg?branch=master&service=github' alt='Coverage Status' />]
 <img src="http://wiki.protoneer.co.nz/images/c/c6/WifiPixels_Top.JPG"/>
 
 ==Updating Firmware== 
@@ -17,3 +16,6 @@ The WifiPixels_MQTT_NeoPixel example includes a quick setup system that works as
 * https://github.com/esp8266/Arduino - Arduino Board definitions making it possible to program ESP8266 boards from the Arduino IDE.
 * https://github.com/Imroy/pubsubclient - MQTT Client Library to remotely communicate with devices
 * https://github.com/Makuna/NeoPixelBus - Library to control NeoPixel RGB Addressable Led's
+
+[https://travis-ci.org/Protoneer/WifiPixels <img src="https://travis-ci.org/Protoneer/WifiPixels.svg?branch=master"/>]
+* Travis Status Feed : https://api.travis-ci.org/repos/Protoneer/WifiPixels/builds

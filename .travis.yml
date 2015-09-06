@@ -19,11 +19,11 @@ before_install:
   
 script:
   # GTests
-  - mkdir _builds
-  - cd _builds
-  - cmake ..
-  - make
-  - ctest
+  #- mkdir _builds
+  #- cd _builds
+  #- cmake ..
+  #- make
+  #- ctest
 
   # Set Board
   - arduino --board esp8266:esp8266:generic --save-prefs
