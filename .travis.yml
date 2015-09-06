@@ -26,6 +26,7 @@ script:
   - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
   - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
 
+  - ls /home/travis/build/Protoneer/WifiPixels/test
   # GTests
   - mkdir _builds
   - cd _builds
