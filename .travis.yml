@@ -2,7 +2,7 @@ language: c
 sudo: false
 before_install:
   #  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
-  - apt-get install libgtest-dev
+  - sudo apt-get install libgtest-dev
   - source <(curl -SLs https://raw.githubusercontent.com/Protoneer/Travis-CI-ESP8266-Initializer/master/install.sh)
   
   # Install PubSubClient
