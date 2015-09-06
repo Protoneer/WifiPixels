@@ -1,4 +1,4 @@
-[https://travis-ci.org/Protoneer/WifiPixels <img src="https://travis-ci.org/Protoneer/WifiPixels.svg?branch=master"/>]
+[https://travis-ci.org/Protoneer/WifiPixels <img src="https://travis-ci.org/Protoneer/WifiPixels.svg?branch=master"/>][https://coveralls.io/github/Protoneer/WifiPixels?branch=master <img src='https://coveralls.io/repos/Protoneer/WifiPixels/badge.svg?branch=master&service=github' alt='Coverage Status' />]
 <img src="http://wiki.protoneer.co.nz/images/c/c6/WifiPixels_Top.JPG"/>
 
 ==Updating Firmware== 
