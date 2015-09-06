@@ -1,8 +1,10 @@
-language: c
+language: cpp
 sudo: true
 before_install:
-#  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+  # Install GTest
   - sudo apt-get install libgtest-dev
+
+  # Run Reneral ESP8266 install script
   - source <(curl -SLs https://raw.githubusercontent.com/Protoneer/Travis-CI-ESP8266-Initializer/master/install.sh)
   
   # Install PubSubClient
@@ -16,6 +18,14 @@ before_install:
   - mv NeoPixelBus $HOME/arduino_ide/libraries
   
 script:
+  # GTests
+  - mkdir _builds
+  - cd _builds
+  - cmake ..
+  - make
+  - ctest
+
+  # Set Board
   - arduino --board esp8266:esp8266:generic --save-prefs
   
   # Test Each Example
