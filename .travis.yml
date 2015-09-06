@@ -19,9 +19,9 @@ before_install:
   
 script:
   # GTests
-  #- mkdir _builds
-  #- cd _builds
-  #- cmake ..
+  - mkdir _builds
+  - cd _builds
+  - cmake ..
   #- make
   #- ctest
 

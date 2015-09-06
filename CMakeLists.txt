@@ -1,14 +1,10 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(gtest)
-
-find_package(GTest REQUIRED)
-find_package(Threads REQUIRED)
-
-include_directories(${GTEST_INCLUDE_DIRS})
-
-add_executable(test_bin test.cpp)
-target_link_libraries(test_bin ${GTEST_BOTH_LIBRARIES})
-target_link_libraries(test_bin ${CMAKE_THREAD_LIBS_INIT})
-
 enable_testing()
-add_test(A test_bin)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+add_subdirectory(src)
+add_subdirectory(test)
