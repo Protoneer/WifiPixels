@@ -31,8 +31,8 @@ script:
   - mkdir _builds
   - cd _builds
   - cmake ..
-  #- make
-  #- ctest
+  - make
+  - ctest
   
 notifications:
   email:
