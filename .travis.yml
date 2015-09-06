@@ -18,13 +18,6 @@ before_install:
   - mv NeoPixelBus $HOME/arduino_ide/libraries
   
 script:
-  # GTests
-  - mkdir _builds
-  - cd _builds
-  - cmake ..
-  #- make
-  #- ctest
-
   # Set Board
   - arduino --board esp8266:esp8266:generic --save-prefs
   
@@ -32,6 +25,13 @@ script:
   - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
   - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
   - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
+
+  # GTests
+  - mkdir _builds
+  - cd _builds
+  - cmake ..
+  #- make
+  #- ctest
   
 notifications:
   email:
