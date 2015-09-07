@@ -3,6 +3,8 @@ set(GTEST_DIR ../third-party/gtest-1.7.0)
 file(GLOB_RECURSE INC_FILES ../include/*.h)
 file(GLOB TESTS_FILES *.hpp *.cpp)
 
+
+#[[
 include_directories(
 	../include
     ${GTEST_DIR}
@@ -18,4 +20,4 @@ add_executable(ArduinoJsonTests
 
 target_link_libraries(ArduinoJsonTests ArduinoJson)
 
-add_test(ArduinoJsonTests ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ArduinoJsonTests)
+add_test(ArduinoJsonTests ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ArduinoJsonTests) ]]
