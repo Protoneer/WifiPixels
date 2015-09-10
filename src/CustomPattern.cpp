@@ -60,44 +60,44 @@ void TestPatternInjector(){
   A1.Cycles = 0;
 }
 
-void ClearFrame(RgbColor *frame){
+void FillFrame(RgbColor *frame, RgbColor fill){
   for(int K=0;K<leds;K++){
-    frame[K] = RgbColor(0,0,0);
+    frame[K] = fill;
   }
 }
 
 void TestPatternInjector2(){
-  ClearFrame(A1.Frames[0]);
+  FillFrame(A1.Frames[0],RgbColor(0,0,0));
   A1.Frames[0][0] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[1]);
+  FillFrame(A1.Frames[1],RgbColor(0,0,0));
   A1.Frames[1][1] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[2]);
+  FillFrame(A1.Frames[2],RgbColor(0,0,0));
   A1.Frames[2][2] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[3]);
+  FillFrame(A1.Frames[3],RgbColor(0,0,0));
   A1.Frames[3][3] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[4]);
+  FillFrame(A1.Frames[4],RgbColor(0,0,0));
   A1.Frames[4][4] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[5]);
+  FillFrame(A1.Frames[5],RgbColor(0,0,0));
   A1.Frames[5][5] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[6]);
+  FillFrame(A1.Frames[6],RgbColor(0,0,0));
   A1.Frames[6][6] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[7]);
+  FillFrame(A1.Frames[7],RgbColor(0,0,0));
   A1.Frames[7][7] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[8]);
+  FillFrame(A1.Frames[8],RgbColor(0,0,0));
   A1.Frames[8][8] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[9]);
+  FillFrame(A1.Frames[9],RgbColor(0,0,0));
   A1.Frames[9][9] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[10]);
+  FillFrame(A1.Frames[10],RgbColor(0,0,0));
   A1.Frames[10][10] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[11]);
+  FillFrame(A1.Frames[11],RgbColor(0,0,0));
   A1.Frames[11][11] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[12]);
+  FillFrame(A1.Frames[12],RgbColor(0,0,0));
   A1.Frames[12][12] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[13]);
+  FillFrame(A1.Frames[13],RgbColor(0,0,0));
   A1.Frames[13][13] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[14]);
+  FillFrame(A1.Frames[14],RgbColor(0,0,0));
   A1.Frames[14][14] = RgbColor(30,0,0);
-  ClearFrame(A1.Frames[15]);
+  FillFrame(A1.Frames[15],RgbColor(0,0,0));
   A1.Frames[15][15] = RgbColor(30,0,0);
 
   A1.FrameIntervals[0] = 50;
@@ -120,6 +120,64 @@ void TestPatternInjector2(){
   A1.Index = maxFrames;
 
   A1.Cycles = 0;
+}
+
+void SetBaseAndFillRest(RgbColor *frame,RgbColor base, RgbColor fill, int fillCount){
+  for (int K = 0; K < leds; K++) {
+    frame[K]=base;
+  }
+  for (int K = 0; K < fillCount; K++) {
+    frame[K]=fill;
+  }
+  
+  
+}
+
+void TestPatternInjector3(){
+  for(int K=0; K < leds; K++){
+    SetBaseAndFillRest(A1.Frames[K],RgbColor(0,0,0),RgbColor(30,0,0),K+1);    
+  }
+  for(int K=16; K < 16+leds; K++){
+    SetBaseAndFillRest(A1.Frames[K],RgbColor(30,0,0),RgbColor(0,0,0),K-15);    
+  }
+  for(int K=32; K < 32+leds; K++){
+    SetBaseAndFillRest(A1.Frames[K],RgbColor(0,0,0),RgbColor(0,30,0),K-31);    
+  }
+  for(int K=48; K < 48+leds; K++){
+    SetBaseAndFillRest(A1.Frames[K],RgbColor(0,30,0),RgbColor(0,0,0),K-47);    
+  }
+  for(int K=64; K < 64+leds; K++){
+    SetBaseAndFillRest(A1.Frames[K],RgbColor(0,0,0),RgbColor(0,0,30),K-63);    
+  }
+  for(int K=76; K < 76+leds; K++){
+    SetBaseAndFillRest(A1.Frames[K],RgbColor(0,0,30),RgbColor(0,0,0),K-75);    
+  }
+
+  for(int K=0; K < 88; K++){
+    A1.FrameIntervals[K]=30;
+  }
+  
+  
+  A1.Index = maxFrames;
+  A1.Cycles = 0;
+ 
+}
+
+void TestPatternInjector4(){
+  FillFrame(A1.Frames[0], RgbColor(30,0,0));
+  FillFrame(A1.Frames[1], RgbColor(0,30,0));
+  FillFrame(A1.Frames[2], RgbColor(0,0,30));
+  FillFrame(A1.Frames[3], RgbColor(0,0,0));
+  FillFrame(A1.Frames[4], RgbColor(30,30,30));
+  
+  for(int K=0; K < 5; K++){
+    A1.FrameIntervals[K]=1000;
+  }
+  
+  
+  A1.Index = maxFrames;
+  A1.Cycles = 0;
+
 }
 
 
@@ -147,7 +205,9 @@ void SetPixels(PIXEL_HELPER_CLASS* p_helper,RgbColor *frame){
 void ParseCustomPattern(String input, PIXEL_HELPER_CLASS* p_helper) {
   p_helper->LEDMode = CustomPattern_Mode;
   //TestPatternInjector();
-  TestPatternInjector2();
+  //TestPatternInjector2();
+  TestPatternInjector3();
+  //TestPatternInjector4();
 }
 
 void DoCustomPatternMode(PIXEL_HELPER_CLASS* p_helper) {
