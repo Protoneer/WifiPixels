@@ -1,21 +1,28 @@
 language: c
-sudo: false
+sudo: true
 before_install:
-#  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+  #  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+  - sudo apt-get install libgtest-dev
   - source <(curl -SLs https://raw.githubusercontent.com/Protoneer/Travis-CI-ESP8266-Initializer/master/install.sh)
+  
+  # Install PubSubClient
   - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient.tar.gz
   - tar xf pubsubclient.tar.gz
   - mv pubsubclient-1.99.1 $HOME/arduino_ide/libraries
   - mv $HOME/arduino_ide/libraries/pubsubclient-1.99.1 $HOME/arduino_ide/libraries/pubsubclient
-  - ls $HOME/arduino_ide/libraries
+
+  # Install NeoPixels Bus
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
-  - ls $HOME/arduino_ide/libraries
+  
 script:
   - arduino --board esp8266:esp8266:generic --save-prefs
+  
+  # Test Each Example
   - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
   - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
   - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
+  
 notifications:
   email:
     on_success: change
