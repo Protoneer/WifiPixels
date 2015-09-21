@@ -3,6 +3,10 @@
 
 	#include <ESP8266WiFi.h>
 	#include <ESP8266WebServer.h>
-	void wifi_setup();
+  #include "config.h"
+  
+	void wifi_setup(struct wifi_settings_struct *settings);
+  void WifiClient(struct wifi_settings_struct *settings);
+  //void WifiAP(struct wifi_settings_struct *settings);
 	
 #endif

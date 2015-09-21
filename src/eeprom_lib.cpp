@@ -46,22 +46,22 @@ bool write_string(word pos, String value, word size_buffer)
   return true;
 }
 
-void LoadClientSettings(wifi_settings_struct * settings){
+void LoadClientSettings(wifi_settings_struct settings){
   char ssid[32];
   char pw[32];
   if(!read_string(0,ssid,32))Serial.println("SSID Read Failed...");
   if(!read_string(33,pw,32))Serial.println("PW Read Failed...");
 
 
-  settings->CLIENT_SSID = ssid;
-  settings->CLIENT_Password = pw;
-  settings->Mode = CLIENT_MODE;
+  settings.CLIENT_SSID = ssid;
+  settings.CLIENT_Password = pw;
+  settings.Mode = CLIENT_MODE;
   
 }
 
-void SaveClientSettings(wifi_settings_struct * settings){  
-  if(!write_string(0,settings->CLIENT_SSID,32))Serial.println("SSID Not Saved");
-  if(!write_string(33,settings->CLIENT_Password,32))Serial.println("PW Not Saved");
+void SaveClientSettings(wifi_settings_struct settings){  
+  if(!write_string(0,settings.CLIENT_SSID,32))Serial.println("SSID Not Saved");
+  if(!write_string(33,settings.CLIENT_Password,32))Serial.println("PW Not Saved");
 }
 
 

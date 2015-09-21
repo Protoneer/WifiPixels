@@ -34,10 +34,11 @@ void setup()
   pixel_helper->ProcessSerial = true;
   */
 
-  //wifi_helper->wifiSetup();
-
-
   
+  // Setup Wifi
+  wifi_setup(&wifi_settings);
+
+  // Setup Webserver
   webserver_url_routing(&server);
   server.begin();
   Serial.println("HTTP server started");
