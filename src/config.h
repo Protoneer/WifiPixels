@@ -40,8 +40,4 @@ struct pixels_settings_struct{
     long previousMillis   = 0;        // Last time the pixel process was run
 };
 
-extern wifi_settings_struct      wifi_settings;
-extern mqtt_settings_struct      mqtt_settings;
-extern pixels_settings_struct    pixels_settings;
-
 #endif
