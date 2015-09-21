@@ -2,41 +2,15 @@
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
 #include <PubSubClient.h>     // MQTT
-#include <NeoPixelBus.h>      // Pixels
 #include "eeprom_lib.h"
 #include "config.h"
-
-wifi_settings_struct      wifi_settings;
-mqtt_settings_struct      mqtt_settings;
-pixels_settings_struct    pixels_settings;
+#include "webserver_setup.h"
+#include "wifi_setup.h"
+#include <NeoPixelBus.h>      // Pixels
 
 ESP8266WebServer server(webserver_port);
 NeoPixelBus strip = NeoPixelBus(pixel_count, pixel_pin);
 
-void handleNotFound(){}; 
-void handleWifi(){};
-void GetAccessPoints(){};
-void GetCurrentAnimation(){};
-void SetCurrentAnimation(){};
-void GetAnimationFrame(){};
-void SetAnimationFrame(){};
-
-void webserver_url_routing(ESP8266WebServer * webserver){
-  webserver->onNotFound(handleNotFound);
-  
-  // Setup URL's
-  webserver->on("/wifisetup.html", handleWifi);
-  webserver->on("/", handleWifi);
-  
-  // API URL'scan
-  webserver->on("/api/v1/access_points.json",  HTTP_GET,  GetAccessPoints);   // List of available Wifi Networks
-  
-  webserver->on("/api/v1/current_animation",   HTTP_GET,  GetCurrentAnimation); // Get the selected animation 0-3
-  webserver->on("/api/v1/current_animation",   HTTP_POST, SetCurrentAnimation); // Set the selected animation 0-3 [0=disabled]
-
-  webserver->on("/api/v1/animation_frame",   HTTP_GET,  GetAnimationFrame);   // Get frame , frame=???
-  webserver->on("/api/v1/animation_frame",   HTTP_POST,   SetAnimationFrame);   // Set frame , post data -> frameNumber=0;frameData="???";
-};
 
 /*
 void callback(const MQTT::Publish& pub) {
@@ -61,7 +35,13 @@ void setup()
   */
 
   //wifi_helper->wifiSetup();
-  //web_interface->WebServer();
+
+
+  
+  webserver_url_routing(&server);
+  server.begin();
+  Serial.println("HTTP server started");
+
 
   /*
   // Set basic settings
@@ -84,7 +64,7 @@ void setup()
 
 void loop()
 {
-  //web_interface->handleClient();
+  server.handleClient();
   
  /*
   mqtt_helper->mqttLoop();

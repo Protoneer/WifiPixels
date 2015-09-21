@@ -1,6 +1,7 @@
 #ifndef config_h
 #define config_h
 
+
 #define EEPROM_SIZE   512
 #define pixel_count   16      // Number of RRG led's hooked-up in the chain
 #define pixel_pin     2       // MCU Pin used to drive the LED's
@@ -39,5 +40,9 @@ struct pixels_settings_struct{
     bool ProcessSerial    = false;      // Accept serial commands
     long previousMillis   = 0;        // Last time the pixel process was run
 };
+
+extern wifi_settings_struct      wifi_settings;
+extern mqtt_settings_struct      mqtt_settings;
+extern pixels_settings_struct    pixels_settings;
 
 #endif
