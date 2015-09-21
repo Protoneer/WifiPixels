@@ -14,7 +14,7 @@ before_install:
   # Install NeoPixels Bus
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
-  
+  - sudo pip install cpp-coveralls  
 script:
   - arduino --board esp8266:esp8266:generic --save-prefs
   
@@ -23,7 +23,13 @@ script:
   - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
   - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
   
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - ./unit_tests 
 notifications:
+  - coveralls --root .. -E ".*third-party.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
   email:
     on_success: change
     on_failure: change
