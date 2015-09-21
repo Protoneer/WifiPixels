@@ -1,0 +1,61 @@
+#define EEPROM_SIZE 	512
+
+
+struct wifi_settings_struct{
+	// Access Point
+    String AP_SSID = "WifiPixels";
+    String AP_Password = "";
+	IPAddress AP_IP;
+	
+	// Wifi Client
+    String CLIENT_SSID = "";
+    String CLIENT_Password = "";
+    IPAddress CLIENT_IP;
+	
+	// Client mode or mixed mode
+	int Mode = AP_MODE;
+};
+
+struct mqtt_settings_struct{
+    String mqttServer 		= "m11.cloudmqtt.com";
+    int mqttPort			= ;
+    String mqttUser			= "xxx";
+    String mqttPassword		= "xxx";
+    String mqttClientID		= "Client1234";
+    String mqttSubTopic		= "/test/buttonPressed";    
+};
+
+struct pixels_settings_struct{
+    int LEDMode 			= RGBMode_Blank;	
+    bool ProcessSerial 		= false;			// Accept serial commands
+    long previousMillis 	= 0;				// Last time the pixel process was run
+	int pixel_count			= 16;
+	int pixel_pin			= 2;
+};
+
+wifi_settings_struct wifi_settings;
+mqtt_settings_struct mqtt_settings;
+pixels_settings_struct pixels_settings;
+
+ESP8266WebServer server(80);
+NeoPixelBus strip = NeoPixelBus(pixelCount, pixelPin);
+
+
+void webServer_routing(ESP8266WebServer * webserver){
+	webserver.onNotFound(handleNotFound);
+	
+	// Setup URL's
+	webserver.on("/wifisetup.html", handleWifi);
+	webserver.on("/", handleWifi);
+	
+	// API URL'scan
+	webserver.on("/api/v1/ap-scan.json",		get,	handleScan);	// List of available Wifi Networks
+	
+	webserver.on("/api/v1/CurrentAnimation", 	get, 	???);			// Get the selected animation 0-3
+	webserver.on("/api/v1/CurrentAnimation", 	post,	???);			// Set the selected animation 0-3 [0=disabled]
+
+	webserver.on("/api/v1/AnimationFrame",		get, 	???);			// Get frame , frame=???
+	webserver.on("/api/v1/AnimationFrame",		post, 	???);			// Set frame , post data -> frameNumber=0;frameData="???";
+};
+
+
