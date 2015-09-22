@@ -6,6 +6,17 @@ before_install:
 
   # Run Reneral ESP8266 install script
   - source <(curl -SLs https://raw.githubusercontent.com/Protoneer/Travis-CI-ESP8266-Initializer/master/install.sh)
+
+  # Install PubSubClient
+  - wget https://github.com/Imroy/pubsubclient/archive/v1.99.1.tar.gz -O pubsubclient.tar.gz
+  - tar xf pubsubclient.tar.gz
+  - mv pubsubclient-1.99.1 $HOME/arduino_ide/libraries
+  - mv $HOME/arduino_ide/libraries/pubsubclient-1.99.1 $HOME/arduino_ide/libraries/pubsubclient
+
+  # Install NeoPixels Bus
+  - git clone https://github.com/Makuna/NeoPixelBus.git
+  - mv NeoPixelBus $HOME/arduino_ide/libraries
+  
   
 script:
   # Set Board

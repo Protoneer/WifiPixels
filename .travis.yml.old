@@ -16,6 +16,8 @@ before_install:
   # Install NeoPixels Bus
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
+
+
   - sudo pip install cpp-coveralls  
   
 script:
