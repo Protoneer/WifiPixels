@@ -21,7 +21,7 @@ before_install:
   - ls ~/Arduino
   - ls ~/.arduino15
   - ls ~/.arduino15/packages
-  - ls ~/.arduino15/staging
+  - ls ~/.arduino15/packages/esp8266/hardware/esp8266
 
   
 script:
