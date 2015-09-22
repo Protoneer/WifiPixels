@@ -1,11 +1,6 @@
 language: cpp
 sudo: true
 
-# whitelist
-branches:
-  only:
-    - master
-    - FP
 before_install:
   # Install GTest
   - sudo apt-get install libgtest-dev
@@ -28,9 +23,9 @@ script:
   - arduino --board esp8266:esp8266:generic --save-prefs
   
   # Test Each Example
-  - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
-  - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
-  - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
+#  - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
+#  - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
+#  - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
 
   - ls /home/travis/build/Protoneer/WifiPixels/test
   # GTests

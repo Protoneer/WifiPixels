@@ -25,10 +25,9 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/include
     )
 
-add_library(
-    example
-    src/example.cpp
-    )
+#add_library(
+#    src/config.cpp
+#    )
 
 add_custom_target(
     git_update
@@ -51,8 +50,7 @@ set_source_files_properties(${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/src/gt
 add_executable(
     unit_tests
     test/main.cpp
-    test/example_add.cpp
-    test/example_subtract.cpp
+    test/test_config.cpp
     )
 
 add_dependencies(unit_tests gtest)
@@ -60,7 +58,6 @@ add_dependencies(unit_tests gtest)
 target_link_libraries(
     unit_tests
     gtest
-    example
     pthread
     )
 
