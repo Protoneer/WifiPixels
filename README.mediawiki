@@ -13,7 +13,7 @@ The WifiPixels_MQTT_NeoPixel example includes a quick setup system that works as
 * Should the Wifi Connection fail after 3 attempts, the unit will go in recovery mode and switch back to an Access Point. From where it can be connected to a network again.
 
 ==External Library Dependencies==
-* https://github.com/esp8266/Arduino - Arduino Board definitions making it possible to program ESP8266 boards from the Arduino IDE.
+* https://github.com/esp8266/Arduino - Arduino Board definitions making it possible to program ESP8266 boards from the Arduino IDE. 
 * https://github.com/Imroy/pubsubclient - MQTT Client Library to remotely communicate with devices
 * https://github.com/Makuna/NeoPixelBus - Library to control NeoPixel RGB Addressable Led's
 

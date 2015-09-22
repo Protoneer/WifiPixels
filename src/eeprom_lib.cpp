@@ -1,9 +1,7 @@
-#include "quick_setup.h"
+#include <ESP8266WiFi.h>
 #include <EEPROM.h>
-#include "webinterface.h"
-#include "wifi_helper.h"
-
-QUICK_SETUP_CLASS * quick_setup;
+#include "eeprom_lib.h"
+#include "config.h"
 
 //read a string 
 //a string is multibyte + \0, this is won't work if 1 char is multibyte like chinese char 
@@ -48,35 +46,22 @@ bool write_string(word pos, String value, word size_buffer)
   return true;
 }
 
-
-
-void QUICK_SETUP_CLASS::Start(){
-  wifi_helper = new WIFI_HELPER_CLASS();
-  wifi_helper->wifiSetup();
-
-  
-  web_interface = new WEBINTERFACE_CLASS(); 
-  web_interface->WebServer();
-}
-
-void QUICK_SETUP_CLASS::Handle_Requests(){
-  web_interface->handleClient();
-}
-
-void QUICK_SETUP_CLASS::LoadClientSettings(){
+void LoadClientSettings(wifi_settings_struct settings){
   char ssid[32];
   char pw[32];
   if(!read_string(0,ssid,32))Serial.println("SSID Read Failed...");
   if(!read_string(33,pw,32))Serial.println("PW Read Failed...");
 
 
-  quick_setup->CLIENT_SSID = ssid;
-  quick_setup->CLIENT_Password = pw;
-  quick_setup->Mode = CLIENT_MODE;
+  settings.CLIENT_SSID = ssid;
+  settings.CLIENT_Password = pw;
+  settings.Mode = CLIENT_MODE;
   
 }
 
-void QUICK_SETUP_CLASS::SaveClientSettings(){  
-  if(!write_string(0,quick_setup->CLIENT_SSID,32))Serial.println("SSID Not Saved");
-  if(!write_string(33,quick_setup->CLIENT_Password,32))Serial.println("PW Not Saved");
+void SaveClientSettings(wifi_settings_struct settings){  
+  if(!write_string(0,settings.CLIENT_SSID,32))Serial.println("SSID Not Saved");
+  if(!write_string(33,settings.CLIENT_Password,32))Serial.println("PW Not Saved");
 }
+
+
