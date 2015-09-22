@@ -1,6 +1,5 @@
 language: cpp
 sudo: true
-
 before_install:
   # Install GTest
   - sudo apt-get install libgtest-dev
@@ -18,14 +17,15 @@ before_install:
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
   - sudo pip install cpp-coveralls  
+  
 script:
   # Set Board
   - arduino --board esp8266:esp8266:generic --save-prefs
   
   # Test Each Example
-#  - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
-#  - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
-#  - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
+  - arduino --verify $PWD/examples/WifiPixels_Blinky/WifiPixels_Blinky.ino
+  - arduino --verify $PWD/examples/WifiPixels_Fade_RGB/WifiPixels_Fade_RGB.ino
+  - arduino --verify $PWD/examples/WifiPixels_MQTT_NeoPixel/WifiPixels_MQTT_NeoPixel.ino  
 
   - ls /home/travis/build/Protoneer/WifiPixels/test
   # GTests
@@ -35,13 +35,8 @@ script:
   - make
   - ctest
   
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make
-  - ./unit_tests 
 notifications:
-  - coveralls --root .. -E ".*third-party.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
   email:
     on_success: change
     on_failure: change
+  - coveralls --root .. -E ".*third-party.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
