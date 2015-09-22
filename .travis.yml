@@ -1,5 +1,11 @@
 language: c
 sudo: true
+
+# whitelist
+branches:
+  only:
+    - master
+    - FP
 before_install:
   #  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
   - sudo apt-get install libgtest-dev
