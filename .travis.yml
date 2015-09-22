@@ -21,6 +21,14 @@ before_install:
 script:
   # Set Board
   - arduino --board esp8266:esp8266:generic --save-prefs
+  
+  # GTests
+  - sudo mkdir _builds
+  - cd _builds
+  - sudo cmake ..
+  - sudo make
+  - sudo ctest
+  
 
   
 notifications:
