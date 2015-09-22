@@ -19,6 +19,7 @@ before_install:
   - ls $HOME/arduino_ide/libraries
   - ls ~
   - ls ~/Arduino
+  - ls ~/.arduino15
 
   
 script:
