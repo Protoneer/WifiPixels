@@ -23,6 +23,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/include
+	$HOME/arduino_ide/libraries
     )
 
 #add_library(

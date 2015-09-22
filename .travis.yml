@@ -16,7 +16,7 @@ before_install:
   # Install NeoPixels Bus
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
-  - ls $HOME/arduino_ide/libraries
+  - find -iname "ESP8266WiFi.h"
   
 script:
   # Set Board
