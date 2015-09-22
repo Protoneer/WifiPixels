@@ -20,6 +20,8 @@ before_install:
   - ls ~
   - ls ~/Arduino
   - ls ~/.arduino15
+  - ls ~/.arduino15/packages
+  - ls ~/.arduino15/staging
 
   
 script:
