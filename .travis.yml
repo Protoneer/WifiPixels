@@ -18,6 +18,7 @@ before_install:
   - mv NeoPixelBus $HOME/arduino_ide/libraries
   - ls $HOME/arduino_ide/libraries
   - ls ~
+  - ls ~/Arduino
 
   
 script:
