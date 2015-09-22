@@ -17,7 +17,8 @@ before_install:
   - git clone https://github.com/Makuna/NeoPixelBus.git
   - mv NeoPixelBus $HOME/arduino_ide/libraries
   - ls $HOME/arduino_ide/libraries
-  - ls ~/.arduino
+  - ls ~
+
   
 script:
   # Set Board
