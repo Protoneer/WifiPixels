@@ -1,4 +1,5 @@
 #include <gtest/gtest.h> // TEST
+#include "config.h"
 
 TEST(foo, boo) {
   ASSERT_TRUE(true);
@@ -6,7 +7,7 @@ TEST(foo, boo) {
 
 /*
 #include "gtest/gtest.h"
-#include "config.h"
+
 
 wifi_settings_struct      wifi_settings;
 //mqtt_settings_struct      mqtt_settings;
