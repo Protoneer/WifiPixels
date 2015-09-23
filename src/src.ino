@@ -10,9 +10,9 @@
 
 ESP8266WebServer server(webserver_port);
 NeoPixelBus strip = NeoPixelBus(pixel_count, pixel_pin);
-wifi_settings_struct      wifi_settings;
-mqtt_settings_struct      mqtt_settings;
-pixels_settings_struct    pixels_settings;
+//wifi_settings_struct      wifi_settings;
+//mqtt_settings_struct      mqtt_settings;
+//pixels_settings_struct    pixels_settings;
 
 
 /*
@@ -39,7 +39,7 @@ void setup()
 
   
   // Setup Wifi
-  wifi_setup(&wifi_settings);
+  wifi_setup();
 
   // Setup Webserver
   webserver_url_routing(&server);

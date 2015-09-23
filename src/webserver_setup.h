@@ -3,7 +3,9 @@
 
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+
 void webserver_url_routing(ESP8266WebServer * webserver);
+String IPtoString(IPAddress IPaddr);
 void NotFound();
 void GetAccessPoints();
 void WifiSetup();

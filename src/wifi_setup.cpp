@@ -1,23 +1,24 @@
+#include "config.h"
 #include <ESP8266WiFi.h>
 #include "wifi_setup.h"
-#include "config.h"
 
-void wifi_setup(struct wifi_settings_struct *settings){
-  
-	if (settings->Mode == CLIENT_MODE){
-		WifiClient(settings);
+
+
+void wifi_setup(){
+	if (wifi_settings.Mode == CLIENT_MODE){
+		WifiClient();
 	} else {
-		WifiAP(settings);
+		WifiAP();
 	}  
 }
 
 
-void WifiClient(struct wifi_settings_struct *settings){
+void WifiClient(){
   
-  char ssid_buff[settings->CLIENT_SSID.length()+1];
-  char password_buff[settings->CLIENT_Password.length()+1];
-  settings->CLIENT_SSID.toCharArray(ssid_buff,settings->CLIENT_SSID.length()+1);
-  settings->CLIENT_Password.toCharArray(password_buff,settings->CLIENT_Password.length()+1);
+  char ssid_buff[wifi_settings.CLIENT_SSID.length()+1];
+  char password_buff[wifi_settings.CLIENT_Password.length()+1];
+  wifi_settings.CLIENT_SSID.toCharArray(ssid_buff,wifi_settings.CLIENT_SSID.length()+1);
+  wifi_settings.CLIENT_Password.toCharArray(password_buff,wifi_settings.CLIENT_Password.length()+1);
 
   
   Serial.println("Connecting with...");
@@ -34,27 +35,27 @@ void WifiClient(struct wifi_settings_struct *settings){
   WiFi.begin((const char*)ssid_buff, (const char*)password_buff);
 
   if (WiFi.waitForConnectResult() == WL_CONNECTED){
-    settings->Mode = CLIENT_MODE;
+    wifi_settings.Mode = CLIENT_MODE;
 
-    settings->CLIENT_IP = WiFi.localIP();
+    wifi_settings.CLIENT_IP = WiFi.localIP();
 
     Serial.println("");
     Serial.println("WiFi Client connected");  
     Serial.println("IP address: ");
-    Serial.println(settings->CLIENT_IP);    
+    Serial.println(wifi_settings.CLIENT_IP);    
   } else{
-    settings->Mode = AP_MODE;
+    wifi_settings.Mode = AP_MODE;
 
     Serial.println("WiFi Client not connected!!!");  
-    wifi_setup(settings);
+    wifi_setup();
   }
 }
 
-void WifiAP(struct wifi_settings_struct *settings){
-  char apssid_buff[settings->AP_SSID.length()+1];
-  char appassword_buff[settings->AP_Password.length()+1];
-  settings->AP_SSID.toCharArray(apssid_buff,settings->AP_SSID.length()+1);
-  settings->AP_Password.toCharArray(appassword_buff,settings->AP_Password.length()+1);
+void WifiAP(){
+  char apssid_buff[wifi_settings.AP_SSID.length()+1];
+  char appassword_buff[wifi_settings.AP_Password.length()+1];
+  wifi_settings.AP_SSID.toCharArray(apssid_buff,wifi_settings.AP_SSID.length()+1);
+  wifi_settings.AP_Password.toCharArray(appassword_buff,wifi_settings.AP_Password.length()+1);
 
   //Stop Client
   WiFi.disconnect(true);
@@ -64,10 +65,10 @@ void WifiAP(struct wifi_settings_struct *settings){
 
   Serial.println("WiFi AP Started...");  
 
-  settings->Mode = AP_MODE;
-  settings->AP_IP = WiFi.softAPIP();
+  wifi_settings.Mode = AP_MODE;
+  wifi_settings.AP_IP = WiFi.softAPIP();
   
   Serial.println("IP address: ");
-  Serial.println(settings->AP_IP); 
+  Serial.println(wifi_settings.AP_IP); 
   
 }
