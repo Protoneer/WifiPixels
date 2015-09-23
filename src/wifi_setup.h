@@ -7,6 +7,6 @@
   
 	void wifi_setup(struct wifi_settings_struct *settings);
   void WifiClient(struct wifi_settings_struct *settings);
-  //void WifiAP(struct wifi_settings_struct *settings);
+  void WifiAP(struct wifi_settings_struct *settings);
 	
 #endif

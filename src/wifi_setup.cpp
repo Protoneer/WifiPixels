@@ -3,10 +3,11 @@
 #include "config.h"
 
 void wifi_setup(struct wifi_settings_struct *settings){
+  
 	if (settings->Mode == CLIENT_MODE){
 		WifiClient(settings);
 	} else {
-		//WifiAP(settings);
+		WifiAP(settings);
 	}  
 }
 
@@ -48,7 +49,7 @@ void WifiClient(struct wifi_settings_struct *settings){
     wifi_setup(settings);
   }
 }
-/*
+
 void WifiAP(struct wifi_settings_struct *settings){
   char apssid_buff[settings->AP_SSID.length()+1];
   char appassword_buff[settings->AP_Password.length()+1];
@@ -69,4 +70,4 @@ void WifiAP(struct wifi_settings_struct *settings){
   Serial.println("IP address: ");
   Serial.println(settings->AP_IP); 
   
-}*/
+}
