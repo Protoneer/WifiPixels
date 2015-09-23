@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project(gtest-demo)
 
-enable_language(C CXX)
+#enable_language(C CXX)
+enable_language(C)
 
 set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}
