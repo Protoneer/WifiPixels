@@ -1,3 +1,10 @@
+#include <gtest/gtest.h> // TEST
+
+TEST(foo, boo) {
+  ASSERT_TRUE(true);
+}
+
+/*
 #include "gtest/gtest.h"
 #include "config.h"
 
@@ -18,6 +25,6 @@ TEST(example, add)
 	//AP_IP     = IPAddress(192,168,4,1);  // Default Access point ip
 	//CLIENT_IP   = IPAddress(127,0,0,1);    // Default assigned by Wifi router.	
 }
-
+*/
 
 
