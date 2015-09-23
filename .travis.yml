@@ -32,6 +32,7 @@ script:
   - sudo mkdir _builds
   - cd _builds
   - sudo cmake ..
+  - ls
   - sudo make
   - sudo ctest
   
