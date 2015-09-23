@@ -32,3 +32,6 @@
 .QuickSetup.vsarduino.h
 *.sln
 *.suo
+/lib
+/.pioenvs
+/.sconsign.dblite

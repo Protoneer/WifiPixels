@@ -6,6 +6,8 @@
 #define pixel_count   16      // Number of RRG led's hooked-up in the chain
 #define pixel_pin     2       // MCU Pin used to drive the LED's
 #define webserver_port 80
+#define maxFrames 255
+#define animationCount 3
 
 #define AP_MODE      1
 #define CLIENT_MODE   2
@@ -40,7 +42,17 @@ struct pixels_settings_struct{
     long previousMillis   = 0;        // Last time the pixel process was run
 };
 
-extern wifi_settings_struct      wifi_settings;
-extern mqtt_settings_struct      mqtt_settings;
-extern pixels_settings_struct    pixels_settings;
+struct ANIMATION{
+  RgbColor Frames[maxFrames][pixel_count];
+  int FrameIntervals[maxFrames] = {0};
+  int Index = 0;			// Current position in the Animation array
+  int Cycles = 0;
+};
+
+extern ANIMATION 				animations[animationCount];
+extern wifi_settings_struct     wifi_settings;
+extern mqtt_settings_struct     mqtt_settings;
+extern pixels_settings_struct   pixels_settings;
+
+
 #endif
