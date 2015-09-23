@@ -25,7 +25,7 @@ const String wifi_html  =
 "        populate(xmlhttp.responseText);"
 "    }"
 "};"
-"xmlhttp.open('GET', 'scan.json', true);"
+"xmlhttp.open('GET', 'api/v1/access_points.json', true);"
 "xmlhttp.send();"
 "function populate(response) {"
 "    var arr = JSON.parse(response);"
