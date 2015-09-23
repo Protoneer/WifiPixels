@@ -25,6 +25,8 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/include
     $HOME/arduino_ide/libraries
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/libraries/ESP8266WiFi/src
+    ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/cores/esp8266
+    
     )
 
 #add_library(
