@@ -40,6 +40,7 @@ struct pixels_settings_struct{
     //int LEDMode       = RGBMode_Blank;  
     bool ProcessSerial    = false;      // Accept serial commands
     long previousMillis   = 0;        // Last time the pixel process was run
+	int currentAnimation	= 0;	// Zero based selected animation
 };
 
 struct ANIMATION{

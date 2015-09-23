@@ -99,19 +99,41 @@ void WifiSetup(){
 
   webServer->send(200, "text/html", body);
 };
+
 void GetCurrentAnimation(){
-    webServer->send(200, "text/plain", "api/v1/current_animation");
+    String result = "[" + String(pixels_settings.currentAnimation) + "]";
+	webServer->send(200, "text/plain", result);
 };
 
 void SetCurrentAnimation(){    
+	// Need Animation number
+	
   webServer->send(200, "text/plain", "api/v1/current_animation");
 };
 
+
+String GetFrameString(ANIMATION *ani, int frameIndex, int maxFrameSlots){
+	String result = "[";
+	char seporator = '';
+	for(int K=0;K<maxFrameSlots;K++)
+	{
+		result += seporator + String(ani.Frames[frameIndex][K])
+		seporator = ',';
+	}
+	result += "]";
+	return result;	
+}
+
 void GetAnimationFrame(){
-    webServer->send(200, "text/plain", "/api/v1/animation_frame");
+	// Need animation frame number
+	int frameNumber = 0;
+    
+    webServer->send(200, "text/plain", GetFrameString(&animations[pixels_settings.currentAnimation],frameNumber,pixel_count));
 };
 
 void SetAnimationFrame(){
+	// Need frame data.
+	
   webServer->send(200, "text/plain", "/api/v1/animation_frame");
 };
 
