@@ -27,6 +27,7 @@ include_directories(
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/libraries/ESP8266WiFi/src
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/cores/esp8266
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/tools/sdk/include
+    ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/variants/generic
     
     )
 
