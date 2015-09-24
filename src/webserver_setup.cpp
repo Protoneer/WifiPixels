@@ -114,10 +114,10 @@ void SetCurrentAnimation(){
 
 String GetFrameString(ANIMATION *ani, int frameIndex, int maxFrameSlots){
 	String result = "[";
-	char seporator = '';
+	char seporator;
 	for(int K=0;K<maxFrameSlots;K++)
 	{
-		result += seporator + String(ani.Frames[frameIndex][K])
+		result += seporator + "[" + String(ani->Frames[frameIndex][K].R) + "," + String(ani->Frames[frameIndex][K].G) + "," + String(ani->Frames[frameIndex][K].B) + "]";
 		seporator = ',';
 	}
 	result += "]";

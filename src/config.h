@@ -1,6 +1,7 @@
 #ifndef config_h
 #define config_h
 #include <ESP8266WiFi.h>
+#include <NeoPixelBus.h>
 
 #define EEPROM_SIZE   512
 #define pixel_count   16      // Number of RRG led's hooked-up in the chain
