@@ -24,9 +24,6 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/include
-    $HOME/arduino_ide/libraries
-    $HOME/arduino_ide/libraries/NeoPixelBus
-    $HOME/arduino_ide/libraries/pubsubclient
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/libraries/ESP8266WiFi/src
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/cores/esp8266
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/tools/sdk/include
@@ -34,9 +31,10 @@ include_directories(
     
     )
 
-#add_library(
-#    src/config.cpp
-#    )
+add_library(
+    $HOME/arduino_ide/libraries/NeoPixelBus
+    $HOME/arduino_ide/libraries/pubsubclient
+    )
 
 add_custom_target(
     git_update
