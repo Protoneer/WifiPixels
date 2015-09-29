@@ -33,7 +33,7 @@ include_directories(
 
 add_library(
     $HOME/arduino_ide/libraries/NeoPixelBus/NeoPixelBus.h
-    $HOME/arduino_ide/libraries/pubsubclient/src/PubSubClient.h
+    #$HOME/arduino_ide/libraries/pubsubclient/src/PubSubClient.h
     )
 
 add_custom_target(

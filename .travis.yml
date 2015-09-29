@@ -22,6 +22,8 @@ before_install:
   - ls ~/.arduino15
   - ls ~/.arduino15/packages
   - ls ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/libraries
+  - ls $HOME/arduino_ide/libraries/pubsubclient
+  - ls $HOME/arduino_ide/libraries/pubsubclient/src
 
   
 script:
