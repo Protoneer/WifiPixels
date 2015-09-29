@@ -28,10 +28,17 @@ include_directories(
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/cores/esp8266
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/tools/sdk/include
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/variants/generic    
-	$HOME/arduino_ide/libraries/pubsubclient/src
+#	$HOME/arduino_ide/libraries/pubsubclient/src
 	#MQTT.cpp  MQTT.h  PubSubClient.cpp  PubSubClient.h	
-	$HOME/arduino_ide/libraries/NeoPixelBus	
+#	$HOME/arduino_ide/libraries/NeoPixelBus	
     )
+
+
+
+link_directories(
+	$HOME/arduino_ide/libraries
+    )
+
 
 #add_library(
  #   $HOME/arduino_ide/libraries/NeoPixelBus/NeoPixelBus.h
