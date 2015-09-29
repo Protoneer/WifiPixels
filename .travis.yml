@@ -31,7 +31,7 @@ script:
   # GTests
   - sudo mkdir _builds
   - cd _builds
-  - ls
+  - ls ..
   - sudo cmake ..
   - ls
   - sudo make
