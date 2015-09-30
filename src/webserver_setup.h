@@ -13,6 +13,7 @@ void GetCurrentAnimation();
 void SetCurrentAnimation();
 void GetAnimationFrame();
 void SetAnimationFrame();
+void GetUpTime();
 
 
 #endif
