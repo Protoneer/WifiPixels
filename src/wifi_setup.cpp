@@ -7,8 +7,10 @@
 void wifi_setup(){
 	if (wifi_settings.Mode == CLIENT_MODE){
 		WifiClient();
+        Serial.println("ClientMode");
 	} else {
 		WifiAP();
+        Serial.println("APMode");
 	}  
 }
 

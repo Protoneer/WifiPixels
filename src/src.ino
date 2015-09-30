@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
+#include "eeprom_lib.h"
 #include <PubSubClient.h>     // MQTT
 #include "eeprom_lib.h"
 #include "config.h"
@@ -34,7 +35,8 @@ void setup()
   pixel_helper->ProcessSerial = true;
   */
 
-  
+  LoadClientSettings(&wifi_settings);
+   
   // Setup Wifi
   wifi_setup();
 
@@ -44,6 +46,7 @@ void setup()
   Serial.println("HTTP server started");
 
 
+ 
   /*
   // Set basic settings
   quick_setup->AP_SSID = "WifiPixels";
@@ -52,8 +55,11 @@ void setup()
   //quick_setup->AP_IP = "192.168.1.1"; // To-Do  
   //quick_setup->AP_Channel = 7; // To-Do  
 
-  quick_setup->LoadClientSettings();
-  
+*/
+
+
+
+/*  
   quick_setup->Start();  
 
 

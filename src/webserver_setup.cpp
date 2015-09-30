@@ -4,6 +4,8 @@
 #include <ESP8266WebServer.h>
 #include "html_static_resources.h"
 #include "webserver_setup.h"
+#include "eeprom_lib.h"
+#include "wifi_setup.h"
 
 ESP8266WebServer * webServer;
 
@@ -86,12 +88,11 @@ void WifiSetup(){
     }
 
     // Save Settings
-    //wifi_settings.SaveClientSettings();
-    // TODO: EEPROM write
+    SaveClientSettings(wifi_settings);
     
 
     wifi_settings.Mode = CLIENT_MODE;
-    //wifi_helper->wifiSetup();
+    wifi_setup();
   }  
   
   String body = wifi_html;
@@ -142,6 +143,6 @@ void SetAnimationFrame(){
 };
 
 void GetUpTime(){
-	webServer->send(200, "text/plain", millis());
+	webServer->send(200, "text/plain", String(millis()));
 }
 
