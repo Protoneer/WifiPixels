@@ -7,8 +7,8 @@
 #define pixel_count   16      // Number of RRG led's hooked-up in the chain
 #define pixel_pin     2       // MCU Pin used to drive the LED's
 #define webserver_port 80
-#define maxFrames 255
-#define animationCount 3
+#define maxFrames 128
+#define animationCount 2
 
 #define AP_MODE      1
 #define CLIENT_MODE   2
