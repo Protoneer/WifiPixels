@@ -23,6 +23,10 @@ void webserver_url_routing(ESP8266WebServer * webserver){
 
   webserver->on("/api/v1/animation_frame",   HTTP_GET,  GetAnimationFrame);   // Get frame , frame=???
   webserver->on("/api/v1/animation_frame",   HTTP_POST,   SetAnimationFrame);   // Set frame , post data -> frameNumber=0;frameData="???";
+  
+  webserver->on("/api/v1/uptime",   		HTTP_GET,   GetUpTime);   // Get the time ticks since start-up
+  
+  
 };
 
 String IPtoString(IPAddress IPaddr){
@@ -136,4 +140,8 @@ void SetAnimationFrame(){
 	
   webServer->send(200, "text/plain", "/api/v1/animation_frame");
 };
+
+void GetUpTime(){
+	webServer->send(200, "text/plain", millis());
+}
 

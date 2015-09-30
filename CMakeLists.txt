@@ -24,17 +24,26 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/src
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0
     ${PROJECT_SOURCE_DIR}/third-party/gtest-1.7.0/include
-    $HOME/arduino_ide/libraries
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/libraries/ESP8266WiFi/src
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/cores/esp8266
     ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/tools/sdk/include
-    ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/variants/generic
-    
+    ~/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-947-g39819f0/variants/generic    
+#	$HOME/arduino_ide/libraries/pubsubclient/src
+	#MQTT.cpp  MQTT.h  PubSubClient.cpp  PubSubClient.h	
+#	$HOME/arduino_ide/libraries/NeoPixelBus	
     )
 
+
+
+link_directories(
+	$HOME/arduino_ide/libraries
+    )
+
+
 #add_library(
-#    src/config.cpp
-#    )
+ #   $HOME/arduino_ide/libraries/NeoPixelBus/NeoPixelBus.h
+    #$HOME/arduino_ide/libraries/pubsubclient/src/PubSubClient.h
+  #  )
 
 add_custom_target(
     git_update
